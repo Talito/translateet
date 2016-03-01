@@ -1,0 +1,53 @@
+package org.netcomputing.webservices.datamodel;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.netcomputing.webservices.database.UserRepository;
+import org.netcomputing.webservices.server.ConfigLoader;
+
+
+/**
+ * Implements the business logic layer (for example, applies 
+ * algorithms on the data received from the repository; finally 
+ * it serves the results to the "user-interface" layer.
+ * @see https://github.com/spvenka/examples/blob/master/src/main/
+ * java/com/examples/mongodb/service/impl/PersonServiceImpl.java
+ */
+
+public enum UserDAO {
+	
+	/**
+	 * The unique instance of UserDAO
+	 */
+	instance;
+
+	/**
+	 * The user repository implements the specific methods to communicate
+	 * with the (specific) database, e.g. Mongo.
+	 */
+	private UserRepository ur;
+	
+	Logger logger = Logger.getLogger(org.netcomputing.webservices.database.UserRepository.class.getName());
+
+	private UserDAO() {
+		try {
+			ur.initializeUserRepository(new ConfigLoader());
+		} catch (IOException e) {
+			logger.log(Level.SEVERE, "initializeUserRepository did not work");
+			e.printStackTrace();
+		}
+	}
+
+	public User getUser(String uid) {
+		return ur.getUser(uid);
+	}
+
+	public ArrayList<User> getUsersByScore(int score) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

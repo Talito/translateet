@@ -1,0 +1,39 @@
+package org.netcomputing.webservices.datamodel;
+
+import org.netcomputing.webservices.database.UserRepository;
+
+/**
+ * Implements the business logic layer (for example, realizes several
+ * calls to the MongoDB, applies algorithms on the data received, etc;
+ * finally it serves the results to the "user-interface" layer.
+ * @see https://github.com/spvenka/examples/blob/master/src/main/
+ * java/com/examples/mongodb/service/impl/PersonServiceImpl.java
+ */
+
+public enum UserDAO {
+	
+	/**
+	 * The unique instance of UserDAO
+	 */
+	instance;
+
+	private UserRepository ur; // to use later
+
+	private UserDAO() {
+		/*User u = new User();
+		u.setUID(00001);
+		u.setName("Jasel");
+		u.setScore(5);
+		contentProvider.put("00001", u);*/
+	}
+
+	public User getUser(String uid) {
+		return ur.getUser(uid);
+	}
+
+	public User getUsersByScore(int score) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

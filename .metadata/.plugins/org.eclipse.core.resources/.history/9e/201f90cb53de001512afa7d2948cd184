@@ -1,0 +1,40 @@
+package org.netcomputing.webservices.server;
+
+
+/**
+ * Loads the information from a file (e.g. config.lua) and
+ * stored statically in the class, so other classes might
+ * use this information (e.g. database address)
+ * For design issues (static final vs final):
+ * @see http://stackoverflow.com/questions/26908854/
+ * what-is-the-best-way-of-reading-configuration-parameters-from-configuration-file
+ */
+public final class ConfigLoader {
+	
+	/**************************************
+	 ** VALUES TO CONFIGURE THE DATABASE ** 
+	 **************************************/
+	/**
+	 * Server host address
+	 */
+	public final String dbHost;
+	
+	/**
+	 * Server port. Usually 27017
+	 */
+	public final int dbPort;
+	
+	/**
+	 * Database name
+	 */
+	public final String dbName;
+	
+	/**
+	 * Constructor that attempts to load the config. file
+	 * and initializes all the variables
+	 */
+	public ConfigLoader() {
+		
+	}
+
+}

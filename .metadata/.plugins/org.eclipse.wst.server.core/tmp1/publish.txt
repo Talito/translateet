@@ -1,0 +1,4 @@
+#Tomcat publish data
+#Tue Mar 01 12:07:30 CET 2016
+org.eclipse.jst.j2ee.server\:NC2016_4_WS_rest=C\:\\Users\\Josetalito\\Desktop\\CS\\3rd Year\\3rd Period\\Net computing\\apache-tomcat-8.0.30\\wtpwebapps\\NC2016_4_WS_rest
+org.eclipse.jst.j2ee.server\:RESTTranslateet=C\:\\Users\\Josetalito\\Desktop\\CS\\3rd Year\\3rd Period\\Net computing\\apache-tomcat-8.0.30\\wtpwebapps\\RESTTranslateet

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/NC2015_4_WS_rest_client/src/main/java/org/netcomputing/webservices/client/Test.java"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.netcomputing.webservices.client.Test"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="NC2015_4_WS_rest_client"/>
+</launchConfiguration>

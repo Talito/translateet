@@ -1,0 +1,8 @@
+package org.netcomputing.webservices.datamodel;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+public class User {
+
+}

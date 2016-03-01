@@ -1,0 +1,11 @@
+package org.netcomputing.webservices.server;
+
+
+/**
+ * Loads the information from a file (eg. config.lua) and
+ * stored statically in the class, so other classes might
+ * use this information (eg. database address)
+ */
+public final class ConfigLoader {
+
+}

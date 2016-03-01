@@ -1,0 +1,16 @@
+<html>
+	<head></head>
+	<body>
+		<div class="row row-content">
+		    <form action="/rest/users" method="POST">
+		            <table>
+		                <tr>
+		                    <td><label for="uid">UID</label></td>
+		                    <td><input name="uid"/></td>
+		                </tr>
+		            </table>
+		            <input type="submit" value="Submit"/>
+		    </form>
+		</div>
+	</body>
+</html>

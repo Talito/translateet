@@ -1,0 +1,13 @@
+INDEX VERSION 1.3+C:\Users\Josetalito\Desktop\CS\3rd Year\3rd Period\Net computing\Nueva carpeta\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+35814692.index
+850986083.index
+2092385525.index
+4224179238.index
+556743128.index
+3061400061.index
+209490436.index
+2230613775.index
+803697805.index
+337466496.index
+3156030922.index
+3859795988.index

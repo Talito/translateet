@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Translateet!</title>
+</head>
+<body>
+	<img src="logo.jpg" width=400 />
+	<form action="/NetComputing2015_WS_jersey_event/rest/events"
+		method="POST">
+		<table>
+			<tr>
+				<td><label for="id">ID</label></td>
+				<td><input name="id" /></td>
+			</tr>
+			<tr>
+				<td><label for="name">Name</label></td>
+				<td><input name="name" /></td>
+			</tr>
+			<tr>
+				<td><label for="score">Score</label></td>
+				<td><input name="score" /></td>
+			</tr>
+		</table>
+		<input type="submit" value="Submit" />
+
+	</form>
+	<a href="http://localhost:8080/NetComputing2015_WS_jersey_event/rest/events"> LOOK all users </a>
+</body>
+</html>
