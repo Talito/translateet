@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <servers>
-  <server auto-publish-setting="2" auto-publish-time="1" configuration-id="/Servers/Tomcat v8.0 Server at localhost-config" deployDir="wtpwebapps" hostname="localhost" id="Tomcat v8.0 Server at localhost" name="Tomcat v8.0 Server at localhost" runtime-id="Apache Tomcat v8.0" saveSeparateContextFiles="true" server-type="org.eclipse.jst.server.tomcat.80" server-type-id="org.eclipse.jst.server.tomcat.80" start-timeout="45" stop-timeout="15" testEnvironment="false" timestamp="22">
+  <server auto-publish-setting="2" auto-publish-time="1" configuration-id="/Servers/Tomcat v8.0 Server at localhost-config" deployDir="wtpwebapps" hostname="localhost" id="Tomcat v8.0 Server at localhost" name="Tomcat v8.0 Server at localhost" runtime-id="Apache Tomcat v8.0" saveSeparateContextFiles="true" server-type="org.eclipse.jst.server.tomcat.80" server-type-id="org.eclipse.jst.server.tomcat.80" start-timeout="45" stop-timeout="15" testEnvironment="false" timestamp="24">
     <list key="modules" value0="NC2016_4_WS_rest::org.eclipse.jst.j2ee.server:NC2016_4_WS_rest::jst.web::2.3" value1="NC2016_4_WS_rest_event::org.eclipse.jst.j2ee.server:NC2016_4_WS_rest_event::jst.web::2.3" value2="Translit::org.eclipse.jst.j2ee.server:Translit::jst.web::2.3"/>
   </server>
 </servers>

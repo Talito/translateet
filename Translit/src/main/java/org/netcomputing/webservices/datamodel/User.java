@@ -41,4 +41,8 @@ public class User {
 	public void setTranslations(ArrayList<Translation> translation) {
 		this.translation = translation;
 	}
+	
+	public String toString() {
+		return "User with UID: " + this.UID + ", name: " + this.name + ", and score: " + this.score + ".";
+	}
 }

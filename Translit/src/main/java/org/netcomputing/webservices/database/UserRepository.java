@@ -111,7 +111,7 @@ public enum UserRepository {
 	public DB getDB() {
 		if (mongoClient == null) {
 			try {
-				mongoClient = new MongoClient(configLoader.getDbAddress(), configLoader.getDbPort());
+				mongoClient = new MongoClient(configLoader.getDbAddress(), Integer.parseInt(configLoader.getDbPort()));
 			} catch (UnknownHostException e) {
 				System.out.println("Error. Impossible to create MongoClient; track: " + e);
 			return null;

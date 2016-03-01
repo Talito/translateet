@@ -89,11 +89,19 @@
         </div>
 
         <div class="row row-content">
-            <form action="rest/events" method="POST">
+            <form action="rest/users" method="POST">
                     <table>
                         <tr>
-                            <td><label for="id">UID</label></td>
-                            <td><input name="id"/></td>
+                            <td><label for="uid">UID</label></td>
+                            <td><input name="uid"/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="name">Name</label></td>
+                            <td><input name="name"/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="score">Score</label></td>
+                            <td><input name="score"/></td>
                         </tr>
                     </table>
                     <input type="submit" value="Submit"/>
@@ -101,7 +109,7 @@
         </div>
 
         <div class="row row-content">
-            <a href="rest/events"> 
+            <a href="rest/users"> 
                 <button type="button" class="btn btn-primary">Primary</button></a>
         </div>
 

@@ -1,0 +1,79 @@
+package org.netcomputing.webservices.server;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
+
+/**
+ * Loads the information from a file (e.g. config.lua) and
+ * stored statically in the class, so other classes might
+ * use this information (e.g. database address).
+ * For design issues (static final vs final attributes):
+ * @see http://stackoverflow.com/questions/26908854/
+ * what-is-the-best-way-of-reading-configuration-parameters-from-configuration-file
+ */
+public final class ConfigLoader {
+	
+	/**************************************
+	 ** VALUES TO CONFIGURE THE DATABASE ** 
+	 **************************************/
+	/**
+	 * Server host address
+	 */
+	public final String dbAddress;
+	
+	/**
+	 * Server port. Usually 27017
+	 */
+	public final String dbPort;
+	
+	/**
+	 * Database name
+	 */
+	public final String dbName;
+	
+	public String getDbAddress() {
+		return dbAddress;
+	}
+
+	public int getDbPort() {
+		return dbPort;
+	}
+
+	public String getDbName() {
+		return dbName;
+	}
+
+	/**
+	 * Constructor that attempts to load the config. file
+	 * and initializes all the variables
+	 * @throws IOException 
+	 */
+	public ConfigLoader() throws IOException {
+		InputStream inputStream = null;
+		Properties prop = new Properties();
+		String propFileName = "mongodb.properties";
+		try {
+			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+ 
+			if (inputStream != null) {
+				prop.load(inputStream);
+			} else {
+				throw new FileNotFoundException("Settings for MongoDB '" + propFileName + "' "
+						+ "not found in the classpath");
+			}
+		} catch (Exception e) {
+			System.out.println("Exception: " + e);
+			//System.exit(-1);
+		} finally {
+			dbName = prop.getProperty("dbName");
+			dbAddress = prop.getProperty("dbAddress");
+			dbPort = prop.getProperty("dbPort");
+			inputStream.close();
+		}
+	}
+
+
+}

@@ -126,8 +126,8 @@
 
 	      
 	      <Context docBase="NC2016_4_WS_rest" path="/NC2016_4_WS_rest" reloadable="true" source="org.eclipse.jst.j2ee.server:NC2016_4_WS_rest"/>
-	      
-      	<Context docBase="Translit" path="/NC2016_4_WS_rest_event" reloadable="true" source="org.eclipse.jst.j2ee.server:Translit"/></Host>
+	      <!-- NC2016_4_WS_rest_event -->
+      	<Context docBase="Translit" path="/Translit" reloadable="true" source="org.eclipse.jst.j2ee.server:Translit"/></Host>
     </Engine>
   </Service>
 </Server>

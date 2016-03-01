@@ -3,7 +3,7 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-	<display-name>NC2016_4_WS_rest_event</display-name>
+	<display-name>Translit</display-name>
 	<servlet>
 		<servlet-name>myrest</servlet-name>
 		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>

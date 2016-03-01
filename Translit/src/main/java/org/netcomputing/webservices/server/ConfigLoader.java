@@ -27,7 +27,7 @@ public final class ConfigLoader {
 	/**
 	 * Server port. Usually 27017
 	 */
-	public final int dbPort;
+	public final String dbPort;
 	
 	/**
 	 * Database name
@@ -38,7 +38,7 @@ public final class ConfigLoader {
 		return dbAddress;
 	}
 
-	public int getDbPort() {
+	public String getDbPort() {
 		return dbPort;
 	}
 
@@ -57,7 +57,7 @@ public final class ConfigLoader {
 		String propFileName = "mongodb.properties";
 		try {
 			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
- 
+			if (inputStream == null) System.out.println("It's NULL! Not cool");
 			if (inputStream != null) {
 				prop.load(inputStream);
 			} else {
@@ -66,11 +66,10 @@ public final class ConfigLoader {
 			}
 		} catch (Exception e) {
 			System.out.println("Exception: " + e);
-			System.exit(-1);
 		} finally {
 			dbName = prop.getProperty("dbName");
 			dbAddress = prop.getProperty("dbAddress");
-			dbPort = Integer.parseInt(prop.getProperty("dbPort"));
+			dbPort = prop.getProperty("dbPort");
 			inputStream.close();
 		}
 	}
