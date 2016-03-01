@@ -1,0 +1,24 @@
+package org.netcomputing.webservices.server;
+
+public class Snippet {
+	/** 
+	 * Method that hides the logic to search in the database users with the given UID
+	 * @param uid in the web path
+	 * @return user with the given uid from the database
+	 */
+	@Path("{uid}")
+	@GET
+	@Produces({"MediaType.TEXT_XML", "MediaType.APPLICATION_JSON"})
+	public User getUserProfile(@PathParam("uid") String uid) {
+		logger.log(Level.SEVERE, "getUserProfile called.");
+	    if(uid == null || uid.trim().length() == 0) {
+	        throw new RuntimeException("GET: there was no given valid unique identifier.");
+	    }
+		User u = UserDAO.instance.getUser(uid);
+		if (u == null) {
+			throw new RuntimeException("GET: user with given " + uid + " not found.");			
+		}
+		return u;
+	}
+}
+

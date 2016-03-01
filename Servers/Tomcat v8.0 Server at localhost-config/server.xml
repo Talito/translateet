@@ -124,8 +124,10 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="Translateet" path="/" reloadable="true" source="org.eclipse.jst.j2ee.server:Translateet"/>
-      <Context docBase="NC2016_4_WS_rest" path="/NC2016_4_WS_rest" reloadable="true" source="org.eclipse.jst.j2ee.server:NC2016_4_WS_rest"/></Host>
+	      
+	      <Context docBase="NC2016_4_WS_rest" path="/NC2016_4_WS_rest" reloadable="true" source="org.eclipse.jst.j2ee.server:NC2016_4_WS_rest"/>
+	      
+      	<Context docBase="Translit" path="/NC2016_4_WS_rest_event" reloadable="true" source="org.eclipse.jst.j2ee.server:Translit"/></Host>
     </Engine>
   </Service>
 </Server>
