@@ -1,0 +1,110 @@
+package org.netcomputing.webservices.server;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Request;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+
+import org.netcomputing.webservices.datamodel.User;
+import org.netcomputing.webservices.datamodel.UserDAO;
+
+
+//Will map the resource to the URL positions
+@Path("/users")
+public class EventsResource {
+	// Allows to insert contextual objects into the class,
+	// e.g. ServletContext, Request, Response, UriInfo 
+	
+	@Context UriInfo uriInfo;
+	@Context
+	Request request;
+	
+	Logger logger = Logger.getLogger(org.netcomputing.webservices.database.UserRepository.class.getName());
+
+	// Return the list of events to the user in the browser 
+	@GET
+	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_JSON})
+	public List<User> getUsersBrowser() {
+		List<User> users = new ArrayList<User>();
+		users.addAll(UserDAO.instance.getModel().values());
+		if (users.size() == 0) System.out.println("jajaja");
+		return users;
+	}
+	
+	// Return the list of events for applications 
+	/*@GET
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public List<Event> getEvents() {
+		System.out.println("GETEVENTS CALLED");
+		List<Event> events = new ArrayList<Event>();
+		events.addAll(EventDAO.instance.getModel().values());
+		return events;
+	}*/
+	
+	/** 
+	 * Method that hides the logic to search in the database users with the given UID
+	 * @param uid in the web path
+	 * @return user with the given uid from the database
+	 */
+	@Path("{uid}")
+	@GET
+	@Produces({ MediaType.TEXT_XML })
+	public Response getUserProfile(@PathParam("uid") String uid) {
+	    if(uid == null || uid.trim().length() == 0) {
+	        throw new RuntimeException("GET: there was no given valid unique identifier.");
+	    }
+		User u = UserDAO.instance.getUser(uid);
+		System.out.println(u);
+		if (u == null) {
+			throw new RuntimeException("GET: user with given " + uid + " not found.");			
+		}
+		return Response.status(200).entity(u).type(MediaType.TEXT_JSON).build();
+	}
+
+	// retuns the number of Events
+	// Use
+	// http://localhost:8080/.../rest/events/count
+	// to get the total number of records @GET @Path("count")
+	/*@Produces(MediaType.TEXT_PLAIN)
+	public String getCount() {
+		System.out.println("GETCOUNT CALLED");
+		int count = EventDAO.instance.getModel().size();
+		return String.valueOf(count);
+	}*/
+	
+	@POST
+	@Produces(MediaType.TEXT_HTML)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public void newLocation(@FormParam("id") String id,
+			@Context HttpServletResponse servletResponse) throws IOException {
+		System.out.println("NEWLOCATION CALLED");
+		//Event event= new Event();
+		//event.setId(id);
+		//EventDAO.instance.getModel().put(id, event);
+		servletResponse.sendRedirect("../addevent.html");
+	}
+
+	// Defines that the next path parameter after Events is
+	// treated as a parameter and passed to the EventResources
+	// Allows to type
+	// http://localhost:8080/.../rest/locations/1
+	// 1 will be treaded as parameter and passed to EventResource
+	@Path("{event}")
+	public EventResource getLocation(@PathParam("event") String id) {
+		return new EventResource(uriInfo, request, id);
+	}
+}

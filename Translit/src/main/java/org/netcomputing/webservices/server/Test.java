@@ -19,8 +19,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
-import org.netcomputing.webservices.datamodel.Event;
-import org.netcomputing.webservices.datamodel.EventDAO;
 import org.netcomputing.webservices.datamodel.User;
 import org.netcomputing.webservices.datamodel.UserDAO;
 
@@ -38,14 +36,14 @@ public class Test {
 	Logger logger = Logger.getLogger(org.netcomputing.webservices.database.UserRepository.class.getName());
 
 	// Return the list of events to the user in the browser 
-	@GET
+	/*@GET
 	@Produces(MediaType.TEXT_XML)
 	public List<Event> getEventsBrowser() {
 		System.out.println("GETEVENTS IN XML CALLED");
 		List<Event> events = new ArrayList<Event>();
 		events.addAll(EventDAO.instance.getModel().values());
 		return events;
-	}
+	}*/
 	
 	/** 
 	 * Method that hides the logic to search in the database users with the given UID
@@ -69,14 +67,14 @@ public class Test {
 	}
 
 	// Return the list of events for applications 
-	@GET
+	/*@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public List<Event> getEvents() {
 		System.out.println("GETEVENTS CALLED");
 		List<Event> events = new ArrayList<Event>();
 		events.addAll(EventDAO.instance.getModel().values());
 		return events;
-	}
+	} */
 
 	// retuns the number of Events
 	// Use
@@ -85,7 +83,7 @@ public class Test {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getCount() {
 		System.out.println("GETCOUNT CALLED");
-		int count = EventDAO.instance.getModel().size();
+		int count = 1;
 		return String.valueOf(count);
 	}
 	
@@ -95,9 +93,7 @@ public class Test {
 	public void newLocation(@FormParam("id") String id,
 			@Context HttpServletResponse servletResponse) throws IOException {
 		System.out.println("NEWLOCATION CALLED");
-		Event event= new Event();
-		event.setId(id);
-		EventDAO.instance.getModel().put(id, event);
+
 		servletResponse.sendRedirect("../addevent.html");
 	}
 

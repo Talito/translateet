@@ -8,7 +8,6 @@ INDEX VERSION 1.3+C:\Users\Josetalito\Desktop\CS\3rd Year\3rd Period\Net computi
 2217286472.index
 2092385525.index
 35814692.index
-1243243655.index
 803697805.index
 3061400061.index
 3863926748.index

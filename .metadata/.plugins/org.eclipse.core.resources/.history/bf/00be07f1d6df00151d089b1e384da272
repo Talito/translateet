@@ -1,0 +1,107 @@
+package org.netcomputing.webservices.server;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Request;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+import javax.xml.bind.JAXBElement;
+
+import org.netcomputing.webservices.datamodel.Event;
+import org.netcomputing.webservices.datamodel.EventDAO;
+
+
+public class EventResource {
+	@Context
+	UriInfo uriInfo;
+	@Context
+	Request request;
+	String id;
+	
+	Logger logger = Logger.getLogger(org.netcomputing.webservices.server.EventResource.class.getName());
+	
+	public EventResource(UriInfo uriInfo, Request request, String id) {
+		this.uriInfo = uriInfo;
+		this.request = request;
+		this.id = id;
+	}
+	
+	//Application integration 		
+	@GET
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public Event getLocation() {
+		Event p = EventDAO.instance.getModel().get(id);
+		if(p==null)
+			throw new RuntimeException("Get: location with " + id +  " not found");
+		return p;
+	}
+	
+	// For the browser
+	@GET
+	@Produces(MediaType.TEXT_XML)
+	public Event getLocationHTML() {
+		Event p = EventDAO.instance.getModel().get(id);
+		if(p==null)
+			throw new RuntimeException("Get: Location with " + id +  " not found");
+		return p;
+	}
+	
+	/** 
+	 * Method that hides the logic to search in the database users with the given UID
+	 * @param uid in the web path
+	 * @return user with the given uid from the database
+	 */
+	@Path("{uid}")
+	@GET
+	@Produces({"MediaType.TEXT_XML", "MediaType.APPLICATION_JSON"})
+	public void getUserProfile(@PathParam("uid") String uid) {
+
+		logger.log(Level.SEVERE, "getUserProfile called.");
+	    if(uid == null || uid.trim().length() == 0) {
+	        throw new RuntimeException("GET: there was no given valid unique identifier.");
+	    }
+		//User u = UserDAO.instance.getUser(uid);
+		/*if (u == null) {
+			throw new RuntimeException("GET: user with given " + uid + " not found.");			
+		}*/
+		//return u;
+	}
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_XML)
+	public Response putLocation(JAXBElement<Event> todo) {
+		Event c = todo.getValue();
+		return putAndGetResponse(c);
+	}
+	
+	@DELETE
+	public void deleteLocation() {
+		Event c = EventDAO.instance.getModel().remove(id);
+		if(c==null)
+			throw new RuntimeException("Delete: Location with " + id +  " not found");
+	}
+	
+	private Response putAndGetResponse(Event l) {
+		Response res;
+		if(EventDAO.instance.getModel().containsKey(l.getId())) {
+			res = Response.noContent().build();
+		} else {
+			res = Response.created(uriInfo.getAbsolutePath()).build();
+		}
+		EventDAO.instance.getModel().put(l.getId(), l);
+		return res;
+	}
+	
+	
+
+} 

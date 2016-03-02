@@ -17,9 +17,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.xml.bind.JAXBElement;
 
-import org.netcomputing.webservices.datamodel.Event;
-import org.netcomputing.webservices.datamodel.EventDAO;
-
 
 public class EventResource {
 	@Context
@@ -37,24 +34,24 @@ public class EventResource {
 	}
 	
 	//Application integration 		
-	@GET
+	/*@GET
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public Event getLocation() {
 		Event p = EventDAO.instance.getModel().get(id);
 		if(p==null)
 			throw new RuntimeException("Get: location with " + id +  " not found");
 		return p;
-	}
+	}*/
 	
 	// For the browser
-	@GET
+	/*@GET
 	@Produces(MediaType.TEXT_XML)
 	public Event getLocationHTML() {
 		Event p = EventDAO.instance.getModel().get(id);
 		if(p==null)
 			throw new RuntimeException("Get: Location with " + id +  " not found");
 		return p;
-	}
+	}*/
 	
 	/** 
 	 * Method that hides the logic to search in the database users with the given UID
@@ -77,7 +74,7 @@ public class EventResource {
 		//return u;
 	}
 	
-	@PUT
+	/*@PUT
 	@Consumes(MediaType.APPLICATION_XML)
 	public Response putLocation(JAXBElement<Event> todo) {
 		Event c = todo.getValue();
@@ -100,7 +97,7 @@ public class EventResource {
 		}
 		EventDAO.instance.getModel().put(l.getId(), l);
 		return res;
-	}
+	}*/
 	
 	
 

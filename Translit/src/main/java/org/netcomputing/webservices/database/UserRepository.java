@@ -80,7 +80,7 @@ public enum UserRepository {
 			//document.put("uid", u.getUID());
 			document.put("name",  user.getName());
 			document.put("score",  user.getScore());
-			document.put("translation", user.getTranslations());	
+			//document.put("translation", user.getTranslations());	
 		} else {
 			logger.log(Level.SEVERE, "createUser method called with null-valued user.");
 		}

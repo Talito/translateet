@@ -35,7 +35,7 @@ public enum UserDAO {
 	private Map<String, User> contentProvider = new HashMap<String, User>();
 	
 	Logger logger = Logger.getLogger(org.netcomputing.webservices.database.UserRepository.class.getName());
-
+	
 	private UserDAO() {
 		/*try {
 			ur.initializeUserRepository(new ConfigLoader());
@@ -49,10 +49,11 @@ public enum UserDAO {
 		u.setScore(10);
 		contentProvider.put("1", u);
 		
-		u.setUID(2);
-		u.setName("Timmy");
-		u.setScore(5);
-		contentProvider.put("2", u);
+		User u2 = new User();
+		u2.setUID(2);
+		u2.setName("Timmy");
+		u2.setScore(5);
+		contentProvider.put("2", u2);
 	}
 
 	public User getUser(String uid) {
