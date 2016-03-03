@@ -1,0 +1,14 @@
+package org.netcomputing.webservices.database;
+
+import org.netcomputing.webservices.datamodel.User;
+import org.netcomputing.webservices.server.ConfigLoader;
+
+public class Main {
+	
+	public static void main(String args[]) {
+		User u1 = new User(); u1.setUID(001); u1.setName("Jasel"); u1.setScore(7);
+		User u2 = new User(); u2.setUID(002); u2.setName("Timmy"); u2.setScore(5);		
+		ConfigLoader cf = new ConfigLoader();
+		initializeUserRepository(cf);
+	}
+}

@@ -1,0 +1,73 @@
+package org.netcomputing.webservices.datamodel;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.netcomputing.webservices.database.UserRepository;
+import org.netcomputing.webservices.server.ConfigLoader;
+
+
+/**
+ * Implements the business logic layer (for example, applies 
+ * algorithms on the data received from the repository; finally 
+ * it serves the results to the "user-interface" layer.
+ * @see https://github.com/spvenka/examples/blob/master/src/main/
+ * java/com/examples/mongodb/service/impl/PersonServiceImpl.java
+ */
+
+public enum TestDAO {
+	
+	/**
+	 * The unique instance of UserDAO
+	 */
+	instance;
+
+	/**
+	 * The user repository implements the specific methods to communicate
+	 * with the (specific) database, e.g. Mongo.
+	 */
+	private UserRepository ur;
+	
+	private Map<String, User> contentProvider = new HashMap<String, User>();
+	
+	Logger logger = Logger.getLogger(org.netcomputing.webservices.database.UserRepository.class.getName());
+	
+	private TestDAO() {
+		/*try {
+			ur.initializeUserRepository(new ConfigLoader());
+		} catch (IOException e) {
+			logger.log(Level.SEVERE, "initializeUserRepository did not work");
+			e.printStackTrace();
+		}*/
+		User u = new User();
+		u.setUID(1);
+		u.setName("Jasel");
+		u.setScore(10);
+		contentProvider.put("1", u);
+		
+		User u2 = new User();
+		u2.setUID(2);
+		u2.setName("Timmy");
+		u2.setScore(5);
+		contentProvider.put("2", u2);
+	}
+
+	public User getUser(String uid) {
+		return contentProvider.get(uid);
+		//return ur.getUser(uid);
+	}
+
+	public ArrayList<User> getUsersByScore(int score) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public Map<String, User> getModel() {
+		return contentProvider;
+	}
+
+}

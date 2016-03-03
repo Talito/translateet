@@ -1,8 +1,0 @@
-package org.netcomputing.webservices.server;
-
-import org.netcomputing.webservices.database.UserRepository;
-
-public class WebApplication {
-	ConfigLoader cf = new ConfigLoader();
-	UserRepository us = new UserRepository();
-}

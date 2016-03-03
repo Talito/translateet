@@ -11,3 +11,8 @@
 1456854893477	Delete element
 1456854915052	Delete element
 1456897861991	Move compilation unit
+1456898654413	Copy file
+1456907947680	Rename resource 'mongodb.properties'
+1456907960767	Delete element
+1456907964146	Move file
+1456908464021	Rename type 'UserDAO'

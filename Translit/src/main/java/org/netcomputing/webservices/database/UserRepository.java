@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bson.Document;
 import org.netcomputing.webservices.datamodel.User;
 import org.netcomputing.webservices.server.ConfigLoader;
 
@@ -13,6 +14,9 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 
 /**
  * 
@@ -29,7 +33,7 @@ public enum UserRepository {
 	/**
 	 * The abstraction of a (concrete) database.
 	 */
-	private static DB db ;
+	private static MongoDatabase db ;
 	
 	/**
 	 * The mongoClient that connects to a database instance
@@ -50,7 +54,7 @@ public enum UserRepository {
 	 */
 	private String collectionName = "users";
 	
-	private DBCollection usersCollection;
+	private MongoCollection<Document> usersCollection;
 
 	Logger logger = Logger.getLogger(org.netcomputing.webservices.database.UserRepository.class.getName());
 	
@@ -63,8 +67,8 @@ public enum UserRepository {
 	public void initializeUserRepository(ConfigLoader configLoader) {
 		if (configLoader != null) {
 			this.configLoader = configLoader;
-			DB database = mongoClient.getDB(this.configLoader.getDbName()); // if the DB doesn't exist, Mongo will create it
-			usersCollection = database.getCollection(collectionName);
+			db = mongoClient.getDatabase(this.configLoader.getDbName()); // if the DB doesn't exist, Mongo will create it
+			usersCollection = db.getCollection(collectionName);
 		} else {
 			logger.log(Level.SEVERE, "initializeUserRepository called with a null-valued configLoader.");
 		}
@@ -93,8 +97,9 @@ public enum UserRepository {
 	public User getUser(String uid) {
 		BasicDBObject searchQuery = new BasicDBObject();
 		searchQuery.put("uid", uid);
-		DBCursor cursor = usersCollection.find(searchQuery);
-		User user = (User) cursor.next();
+		//DBCursor cursor = usersCollection.find(searchQuery);
+		FindIterable<Document> cursor = usersCollection.find( new Document("uid", uid) );
+		User user = cursor.first();
 		logger.log(Level.INFO, "User retrieved from Users collection: " + user.getName());
 		return user;
 	}
@@ -102,23 +107,18 @@ public enum UserRepository {
 	public ArrayList<User> getAllUsers() {
 		ArrayList<User> allUsers = null;
 		// Some iteration and parsing (?)
-		DBCursor curs = usersCollection.find();
+		FindIterable<Document> cursor = usersCollection.find();
 		return allUsers;
 	}
 	
 	
 	// to check later
-	public DB getDB() {
+	public MongoDatabase getDB() throws UnknownHostException {
 		if (mongoClient == null) {
-			try {
-				mongoClient = new MongoClient(configLoader.getDbAddress(), Integer.parseInt(configLoader.getDbPort()));
-			} catch (UnknownHostException e) {
-				System.out.println("Error. Impossible to create MongoClient; track: " + e);
-			return null;
-			}
+			mongoClient = new MongoClient(configLoader.getDbAddress(), Integer.parseInt(configLoader.getDbPort()));
 		}
 		if (db == null) {
-			db = mongoClient.getDB(configLoader.getDbName());
+			db = mongoClient.getDatabase(configLoader.getDbName());
 		}
 		return db;
 	}

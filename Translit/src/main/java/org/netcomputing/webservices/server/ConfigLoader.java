@@ -57,7 +57,6 @@ public final class ConfigLoader {
 		String propFileName = "mongodb.properties";
 		try {
 			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-			if (inputStream == null) System.out.println("It's NULL! Not cool");
 			if (inputStream != null) {
 				prop.load(inputStream);
 			} else {
