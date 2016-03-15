@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "UID", "message", "translation"})
 public class Text {
 	@XmlElement(required = true)
-	private long UID;
+	private String UID;
 	
 	@XmlElement(required = true)
 	private String message;
@@ -23,10 +23,10 @@ public class Text {
 	@XmlElement(required = false)
 	private ArrayList<Translation> translation;
 	
-	public long getUID() {
+	public String getUID() {
 		return UID;
 	}
-	public void setUID(long UID) {
+	public void setUID(String UID) {
 		this.UID = UID;
 	}
 	public String getMessage() {

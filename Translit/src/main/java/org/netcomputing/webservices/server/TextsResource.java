@@ -42,7 +42,7 @@ public class TextsResource {
 	public List<Text> getTextsBrowser() {
 		logger.log(Level.INFO, "getUserBrowser called.");
 		List<Text> texts = new ArrayList<Text>();
-		texts.addAll(UserDAO.instance.getModel().values());
+		texts.addAll(TextDAO.instance.getModel().values());
 		return texts;
 	}
 	
@@ -76,7 +76,7 @@ public class TextsResource {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void newText(@FormParam("uid") String uid,
 			@FormParam("message") String message) throws IOException {
-		logger.log(Level.INFO, "newUser called.");
+		logger.log(Level.INFO, "newMessage called.");
 		Text text = new Text();
 		text.setMessage(message);
 		TextDAO.instance.getModel().put(uid, text);

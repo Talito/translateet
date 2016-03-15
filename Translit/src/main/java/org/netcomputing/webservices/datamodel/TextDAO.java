@@ -14,15 +14,15 @@ import java.util.Map;
 public enum TextDAO {
 	instance;
 
-	private Map<Long, Text> contentProvider = new HashMap<Long, Text>();
+	private Map<String, Text> contentProvider = new HashMap<String, Text>();
 
 	private TextDAO() {
 		// to change later. modify XML?
 		Text t = new Text();
-		contentProvider.put((long)1, t);
+		contentProvider.put("1", t);
 	}
 
-	public Map<Long, Text> getModel() {
+	public Map<String, Text> getModel() {
 		return contentProvider;
 	}
 
