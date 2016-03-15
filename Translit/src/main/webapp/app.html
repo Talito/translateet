@@ -35,8 +35,6 @@
                          aria-hidden="true"></span> Home</a></li>
                     <li><a href="aboutus.html"><span class="glyphicon glyphicon-info-sign"
                          aria-hidden="true"></span> About</a></li>
-                    <li class="active"><a href="formulier.html"><span class="glyphicon glyphicon-home"
-                         aria-hidden="true"></span> Formulier</a></li>
                 </ul>
             </div>
         </div>
@@ -90,23 +88,31 @@
 
         <div class="row row-content">
             <form action="rest/users" method="POST">
-                    <table>
-                        <tr>
-                            <td><label for="uid">UID</label></td>
-                            <td><input name="uid"/></td>
-                        </tr>
-                        <tr>
-                            <td><label for="name">Name</label></td>
-                            <td><input name="name"/></td>
-                        </tr>
-                    </table>
+                <div class="form-group">
+                  <label for="uid">UID:</label>
+                  <input name="uid" type="text" class="form-control" id="uid">
+                </div>
+                <div class="form-group">
+                  <label for="name">Name:</label>
+                  <input name="name" type="text" class="form-control" id="name">
+                </div>
+                <input type="submit" value="Submit"/>
+            </form>
+        </div>
+
+        <div class="row row-content">
+            <form action="rest/texts" method="POST">
+                    <div class="form-group">
+                      <label for="comment">Comment:</label>
+                      <textarea class="form-control" rows="5" id="comment"></textarea>
+                    </div>
                     <input type="submit" value="Submit"/>
             </form>
         </div>
 
         <div class="row row-content">
             <a href="rest/users"> 
-                <button type="button" class="btn btn-primary">Primary</button></a>
+                <button type="button" class="btn btn-primary">Retrieve all users</button></a>
         </div>
 
         <div class="row row-content">
