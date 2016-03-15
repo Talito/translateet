@@ -99,7 +99,7 @@ public enum UserRepository {
 		searchQuery.put("uid", uid);
 		//DBCursor cursor = usersCollection.find(searchQuery);
 		FindIterable<Document> cursor = usersCollection.find( new Document("uid", uid) );
-		User user = cursor.first();
+		User user = new User();//cursor.first();
 		logger.log(Level.INFO, "User retrieved from Users collection: " + user.getName());
 		return user;
 	}

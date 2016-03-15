@@ -44,13 +44,13 @@ public enum UserDAO {
 			e.printStackTrace();
 		}*/
 		User u = new User();
-		u.setUID(1);
+		u.setUID("1");
 		u.setName("Jasel");
 		u.setScore(10);
 		contentProvider.put("1", u);
 		
 		User u2 = new User();
-		u2.setUID(2);
+		u2.setUID("2");
 		u2.setName("Timmy");
 		u2.setScore(5);
 		contentProvider.put("2", u2);

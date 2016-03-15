@@ -46,16 +46,6 @@ public class UsersResource {
 		return users;
 	}
 	
-	// Return the list of events for applications 
-	/*@GET
-	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public List<Event> getEvents() {
-		System.out.println("GETEVENTS CALLED");
-		List<Event> events = new ArrayList<Event>();
-		events.addAll(EventDAO.instance.getModel().values());
-		return events;
-	}*/
-	
 	/** 
 	 * Method that hides the logic to search in the database users with the given UID
 	 * @param uid in the web path
@@ -63,41 +53,34 @@ public class UsersResource {
 	 */
 	@Path("{uid}")
 	@GET
-	@Produces({ MediaType.TEXT_XML })
+	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_JSON})
 	public User getUserProfile(@PathParam("uid") String uid) {
 		logger.log(Level.INFO, "getUserProfile called.");
 	    if(uid == null || uid.trim().length() == 0) {
 	        throw new RuntimeException("GET: there was no given valid unique identifier.");
 	    }
 		User u = UserDAO.instance.getUser(uid);
-		System.out.println(u);
 		if (u == null) {
 			throw new RuntimeException("GET: user with given " + uid + " not found.");			
 		}
 		return u;
 	}
-
-	// retuns the number of Events
-	// Use
-	// http://localhost:8080/.../rest/events/count
-	// to get the total number of records @GET @Path("count")
-	/*@Produces(MediaType.TEXT_PLAIN)
-	public String getCount() {
-		System.out.println("GETCOUNT CALLED");
-		int count = EventDAO.instance.getModel().size();
-		return String.valueOf(count);
-	}*/
 	
+	/** 
+	 * Method that hides the logic to search in the database users with the given UID
+	 * @param uid in the web path
+	 * @return user with the given uid from the database
+	 */
 	@POST
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void newLocation(@FormParam("id") String id,
-			@Context HttpServletResponse servletResponse) throws IOException {
-		logger.log(Level.INFO, "newLocation called.");
-		//Event event= new Event();
-		//event.setId(id);
-		//EventDAO.instance.getModel().put(id, event);
-		servletResponse.sendRedirect("../addevent.html");
+	public void newUser(@FormParam("uid") String uid,
+			@FormParam("name") String name) throws IOException {
+		logger.log(Level.INFO, "newUser called.");
+		User user = new User();
+		user.setUID(uid); // Long.parseLong(id);
+		user.setName(name);
+		UserDAO.instance.getModel().put(uid, user);
 	}
 
 	// Defines that the next path parameter after Events is

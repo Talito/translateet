@@ -1,7 +1,5 @@
 package org.netcomputing.webservices.datamodel;
 
-import java.util.ArrayList;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -14,7 +12,7 @@ import javax.xml.bind.annotation.XmlType;
 public class User {
 	
 	@XmlElement(name = "UID")
-	private long UID;
+	private String UID; // to be later changed to Long?
 	
 	@XmlElement(name = "name")
 	private String name;
@@ -27,12 +25,13 @@ public class User {
 	
 	public User() {}
 	
-	public long getUID() {
+	public String getUID() {
 		return UID;
 	}
-	public void setUID(long UID) {
-		this.UID = UID;
+	public void setUID(String id) {
+		this.UID = id;
 	}
+	
 	public String getName() {
 		return name;
 	}
@@ -55,4 +54,5 @@ public class User {
 	public String toString() {
 		return "User with UID: " + this.UID + ", name: " + this.name + ", and score: " + this.score + ".";
 	}
+
 }

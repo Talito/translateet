@@ -104,9 +104,7 @@ public enum databaseTest {
 	}
 
 	public void addUserToDB(User user) {
-		usersCollection.insert(
-				new Document().append()
-				);
+	//
 	}
 
 
