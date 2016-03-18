@@ -1,29 +1,48 @@
 package org.netcomputing.webservices.datamodel;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-/**
- * Singleton design pattern The possible implementation of Java depends on the
- * version of Java you are using. As of Java 6 you can define singletons with a
- * single-element enum type. This way is currently the best way to implement a
- * singleton in Java 1.6 or later according to the book ""Effective Java from
- * Joshua Bloch.
- */
+import org.netcomputing.webservices.database.TextRepository;
+import org.netcomputing.webservices.server.ConfigLoader;
 
-public enum TextDAO {
-	instance;
 
-	private Map<String, Text> contentProvider = new HashMap<String, Text>();
+public class TextDAO {
 
-	private TextDAO() {
-		// to change later. modify XML?
-		Text t = new Text();
-		contentProvider.put("1", t);
-	}
+		private TextRepository tr;
+		
+		//private Map<String, User> contentProvider = new HashMap<String, User>();
+		
+		Logger logger = Logger.getLogger(org.netcomputing.webservices.datamodel.TextDAO.class.getName());
+		
+		public TextDAO() {
+			tr = new TextRepository();
+			try {
+				logger.log(Level.INFO, "TextDAO constructor called...");
+				tr.initializeTextRepository(new ConfigLoader());
+				logger.log(Level.INFO, "TextDAO initialized.");
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "initializeUserRepository did not work");
+				e.printStackTrace();
+			}
+		}
 
-	public Map<String, Text> getModel() {
-		return contentProvider;
-	}
+		public Text getText(String uid) {
+			return tr.getTextByUID(uid);
+		}
+		
+		public void addRequest(Text text) {
+			logger.log(Level.INFO, "addText in TextDAO called.");
+			tr.createRequest(text);
+		}
 
+
+		public List<Text> getAllTexts() {
+			ArrayList<Text> allTexts = new ArrayList<Text>();
+			allTexts = tr.getAllTexts();
+			return allTexts;
+		}
 }

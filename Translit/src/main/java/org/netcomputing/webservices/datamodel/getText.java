@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.netcomputing.webservices.database.UserRepository;
+import org.netcomputing.webservices.database.TextRepository;
 import org.netcomputing.webservices.server.ConfigLoader;
 
 
@@ -18,23 +18,23 @@ import org.netcomputing.webservices.server.ConfigLoader;
  * java/com/examples/mongodb/service/impl/PersonServiceImpl.java
  */
 
-public class UserDAO {
+public class getText {
 
 	/**
 	 * The user repository implements the specific methods to communicate
 	 * with the (specific) database, e.g. Mongo.
 	 */
-	private UserRepository ur;
+	private TextRepository ur;
 	
 	//private Map<String, User> contentProvider = new HashMap<String, User>();
 	
-	Logger logger = Logger.getLogger(org.netcomputing.webservices.datamodel.UserDAO.class.getName());
+	Logger logger = Logger.getLogger(org.netcomputing.webservices.datamodel.getText.class.getName());
 	
-	public UserDAO() {
-		ur = new UserRepository();
+	public getText() {
+		ur = new TextRepository();
 		try {
 			logger.log(Level.INFO, "UserDAO constructor called...");
-			ur.initializeUserRepository(new ConfigLoader());
+			ur.initializeTextRepository(new ConfigLoader());
 			logger.log(Level.INFO, "UserDAO initialized.");
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "initializeUserRepository did not work");
@@ -61,5 +61,9 @@ public class UserDAO {
 		allUsers = ur.getAllUsers();
 		return allUsers;
 	}
+	
+//	public Map<String, User> getModel() {
+//		return contentProvider;
+//	}
 
 }

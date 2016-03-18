@@ -34,15 +34,15 @@ public class UsersResource {
 	
 	UserDAO uDAO = new UserDAO();
 	
-	Logger logger = Logger.getLogger(org.netcomputing.webservices.database.UserRepository.class.getName());
+	Logger logger = Logger.getLogger(org.netcomputing.webservices.database.TextRepository.class.getName());
 
 	// Return the list of events to the user in the browser 
 	@GET
 	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_JSON})
 	public List<User> getUsersBrowser() {
-		logger.log(Level.INFO, "getUserBrowser called.");
+		logger.log(Level.INFO, "getUsersBrowser called.");
 		List<User> users = new ArrayList<User>();
-		
+		users = uDAO.getAllUsers();
 		return users;
 	}
 	

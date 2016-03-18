@@ -18,7 +18,7 @@ import com.mongodb.util.JSON;
 
 public class Main {
 	
-	static Logger logger = Logger.getLogger(org.netcomputing.webservices.database.UserRepository.class.getName());
+	static Logger logger = Logger.getLogger(org.netcomputing.webservices.database.TextRepository.class.getName());
 	
 	public static void createUser(User user, MongoCollection<BasicDBObject> usersCollection) {
 		logger.log(Level.INFO, "createUser called in Main test.");
@@ -68,21 +68,6 @@ public class Main {
 		
 		ArrayList<User> allUsers = new ArrayList<User>();
 		FindIterable<BasicDBObject> cursor = usersCollection.find();
-		/*while (cursor.iterator().hasNext()) {
-			
-			BasicDBObject currentUser = cursor.iterator().next();
-			User user = new User();
-			user.setUID(currentUser.getString("UID"));
-			user.setName(currentUser.getString("name"));
-			user.setScore(Integer.parseInt(currentUser.getString("score")));
-			String queriedUserTranaslations = currentUser.getString("translations");
-			
-			String[] trans;
-			trans = queriedUserTranaslations.split(",");
-			user.setTranslations(trans);
-			
-			allUsers.add(user);
-		}*/
     	MongoCursor<BasicDBObject> e = cursor.iterator();
 	    try {
 	        while (e.hasNext()) {

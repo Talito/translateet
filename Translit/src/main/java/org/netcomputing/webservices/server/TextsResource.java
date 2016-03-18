@@ -20,8 +20,6 @@ import javax.ws.rs.core.UriInfo;
 
 import org.netcomputing.webservices.datamodel.Text;
 import org.netcomputing.webservices.datamodel.TextDAO;
-import org.netcomputing.webservices.datamodel.User;
-import org.netcomputing.webservices.datamodel.UserDAO;
 
 
 //Will map the resource to the URL positions
@@ -34,17 +32,16 @@ public class TextsResource {
 	@Context
 	Request request;
 	
-	UserDAO uDAO = new UserDAO();
+	TextDAO tDAO = new TextDAO();
 	
-	Logger logger = Logger.getLogger(org.netcomputing.webservices.database.UserRepository.class.getName());
+	Logger logger = Logger.getLogger(org.netcomputing.webservices.database.TextRepository.class.getName());
 
 	// Return the list of events to the user in the browser 
 	@GET
 	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_JSON})
 	public List<Text> getTextsBrowser() {
-		logger.log(Level.INFO, "getUserBrowser called.");
+		logger.log(Level.INFO, "getTextsBrowser called.");
 		List<Text> texts = new ArrayList<Text>();
-		texts.addAll(TextDAO.instance.getModel().values());
 		return texts;
 	}
 	
@@ -55,31 +52,34 @@ public class TextsResource {
 	@Path("{uid}")
 	@GET
 	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_JSON})
-	public User getUserProfile(@PathParam("uid") String uid) {
-		logger.log(Level.INFO, "getUserProfile called.");
+	public Text getTranslationRequest(@PathParam("uid") String uid) {
+		logger.log(Level.INFO, "getTranslationRequest called.");
 	    if(uid == null || uid.trim().length() == 0) {
 	        throw new RuntimeException("GET: there was no given valid unique identifier.");
 	    }
-		User u = uDAO.getUser(uid);
-		if (u == null) {
-			throw new RuntimeException("GET: user with given " + uid + " not found.");			
+		Text t = tDAO.getText(uid);
+		if (t == null) {
+			throw new RuntimeException("GET: text with given " + uid + " not found.");			
 		}
-		return u;
+		return t;
 	}
 	
 	/** 
-	 * Method that hides the logic to search in the database users with the given UID
+	 * Method that hides the logic to search in the database text with the given UID
 	 * @param uid in the web path
-	 * @return user with the given uid from the database
+	 * @return text with the given uid from the database
 	 */
 	@POST
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void newText(@FormParam("uid") String uid,
+	public void newTranslationRequest(@FormParam("textuid") String uid,
 			@FormParam("message") String message) throws IOException {
-		logger.log(Level.INFO, "newMessage called.");
+		logger.log(Level.INFO, "newTranslationRequest called.");
 		Text text = new Text();
+		text.setUID(uid);
 		text.setMessage(message);
-		TextDAO.instance.getModel().put(uid, text);
+		System.out.println(uid);
+		System.out.println(message);
+		tDAO.addRequest(text);
 	}
 }

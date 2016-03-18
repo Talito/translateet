@@ -87,7 +87,7 @@
         </div>
 
         <div class="row row-content">
-            <form action="rest/users" method="POST">
+            <form action="rest/users" method="POST" id="userform">
                 <div class="form-group">
                   <label for="uid">UID:</label>
                   <input name="uid" type="text" class="form-control" id="uid">
@@ -101,14 +101,14 @@
         </div>
 
         <div class="row row-content">
-            <form action="rest/texts" method="POST">
+            <form action="rest/texts" method="POST" id="textform">
                 	<div class="form-group">
-                  		<label for="uid">UID:</label>
-                  		<input name="uid" type="text" class="form-control" id="uid">
+                  		<label for="textuid">UID:</label>
+                  		<input name="textuid" type="text" class="form-control" id="textuid">
                 	</div>
                     <div class="form-group">
-                      <label for="comment">Comment:</label>
-                      <textarea class="form-control" rows="5" id="comment"></textarea>
+                      <label for="message">Request of translation:</label>
+                      <textarea name="message" form="textform" class="form-control" rows="5" id="message"></textarea>
                     </div>
                     <input type="submit" value="Submit"/>
             </form>
@@ -117,6 +117,11 @@
         <div class="row row-content">
             <a href="rest/users"> 
                 <button type="button" class="btn btn-primary">Retrieve all users</button></a>
+        </div>
+        
+        <div class="row row-content">
+            <a href="rest/texts"> 
+                <button type="button" class="btn btn-primary">Retrieve all texts</button></a>
         </div>
 
         <div class="row row-content">
