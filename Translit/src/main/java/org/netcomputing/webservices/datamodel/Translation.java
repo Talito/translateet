@@ -2,18 +2,23 @@ package org.netcomputing.webservices.datamodel;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement // Only needed if we also want to generate XML responses
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = { "UID", "message", "score", "translation"})
+@XmlType(propOrder = {"UID", "originalTextUID", "score", "message", "translatorUID"})
 public class Translation {
-	
+	@XmlElement(required = true)
 	private long UID;
-	private String text;
+	@XmlElement(required = true)
+	private String originalTçextUI;
+	@XmlElement(required = true)
+	private String message;
 	private int score;
-	private User translator;
+	@XmlElement(required = true)
+	private String translatorUID;
 	
 	public long getUID() {
 		return UID;
@@ -23,10 +28,10 @@ public class Translation {
 	}
 	
 	public String getText() {
-		return text;
+		return originalTçextUI;
 	}
-	public void setText(String text) {
-		this.text = text;
+	public void setText(String newTextUID) {
+		this.originalTçextUI = newTextUID;
 	}
 	public int getScore() {
 		return score;
@@ -34,11 +39,11 @@ public class Translation {
 	public void setScore(int score) {
 		this.score = score;
 	}
-	public User getTranslator() {
-		return translator;
+	public String getTranslatorUID() {
+		return translatorUID;
 	}
-	public void setTranslator(User translator) {
-		this.translator = translator;
+	public void setTranslator(String theTranslatorUID) {
+		this.translatorUID = theTranslatorUID;
 	}
 
 }

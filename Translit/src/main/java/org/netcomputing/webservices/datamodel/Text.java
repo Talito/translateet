@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement // Only needed if we also want to generate XML responses
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = { "UID", "message", "translation"})
+@XmlType(propOrder = { "UID", "message", "translations"})
 public class Text {
 	@XmlElement(required = true)
 	private String UID;
@@ -21,7 +21,7 @@ public class Text {
 	
 	@XmlElementWrapper(name="translations")
 	@XmlElement(required = false)
-	private ArrayList<Translation> translation;
+	private ArrayList<Translation> translations;
 	
 	public String getUID() {
 		return UID;
@@ -36,9 +36,9 @@ public class Text {
 		this.message = message;
 	}
 	public ArrayList<Translation> getTranslations() {
-		return translation;
+		return translations;
 	}
-	public void setTranslations(ArrayList<Translation> translation) {
-		this.translation = translation;
+	public void setTranslations(ArrayList<Translation> translations) {
+		this.translations = translations;
 	}
 }

@@ -1,5 +1,8 @@
 package org.netcomputing.webservices.datamodel;
 
+import java.util.Arrays;
+import java.util.logging.Logger;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -8,11 +11,13 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement // Only needed if we also want to generate XML responses
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {"UID", "name", "score", "translation"})
+@XmlType(propOrder = {"UID", "name", "score", "translations"})
 public class User {
 	
+	static Logger logger = Logger.getLogger(org.netcomputing.webservices.datamodel.User.class.getName());
+	
 	@XmlElement(name = "UID")
-	private String UID; // to be later changed to Long?
+	private String UID;
 	
 	@XmlElement(name = "name")
 	private String name;
@@ -20,8 +25,8 @@ public class User {
 	@XmlElement(name = "score")
 	private int score;
 	
-	//@XmlElement(name = "translations")
-	//private ArrayList<Translation> translation;	
+	@XmlElement(name = "translations")
+	private String[] translations;	
 	
 	public User() {}
 	
@@ -44,15 +49,18 @@ public class User {
 	public void setScore(int score) {
 		this.score = score;
 	}
-	/*public ArrayList<Translation> getTranslations() {
-		return translation;
+	public String[] getTranslations() {
+		return translations;
 	}
-	public void setTranslations(ArrayList<Translation> translation) {
-		this.translation = translation;
-	}*/
+
 	
 	public String toString() {
-		return "User with UID: " + this.UID + ", name: " + this.name + ", and score: " + this.score + ".";
+		return "User with UID: " + this.UID + ", name: " + this.name + ", and score: " + this.score + "."
+				+ " Translations: " + Arrays.toString(this.translations) + "\n";
+	}
+
+	public void setTranslations(String[] trans) {	
+		this.translations = trans;	
 	}
 
 }
