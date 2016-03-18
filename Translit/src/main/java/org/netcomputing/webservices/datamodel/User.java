@@ -1,6 +1,6 @@
 package org.netcomputing.webservices.datamodel;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -26,9 +26,11 @@ public class User {
 	private int score;
 	
 	@XmlElement(name = "translations")
-	private String[] translations;	
+	private ArrayList<String> translations;	
 	
-	public User() {}
+	public User() {
+		score = 0;
+	}
 	
 	public String getUID() {
 		return UID;
@@ -49,17 +51,17 @@ public class User {
 	public void setScore(int score) {
 		this.score = score;
 	}
-	public String[] getTranslations() {
+	public ArrayList<String> getTranslations() {
 		return translations;
 	}
 
 	
 	public String toString() {
 		return "User with UID: " + this.UID + ", name: " + this.name + ", and score: " + this.score + "."
-				+ " Translations: " + Arrays.toString(this.translations) + "\n";
+				+ " Translations: " + translations.toString() + "\n";
 	}
 
-	public void setTranslations(String[] trans) {	
+	public void setTranslations(ArrayList<String> trans) {	
 		this.translations = trans;	
 	}
 

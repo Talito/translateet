@@ -2,7 +2,6 @@ package org.netcomputing.webservices.database;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,7 +26,7 @@ public class Main {
 		if (user != null) {
 			String jsonUser = "{\"UID\":\"" + user.getUID() + "\"," + "\"name\":\"" + user.getName() + "\","
 			+ "\"score\":\"" + user.getScore()+ "\","
-					+ "\"translations\":\"" + Arrays.toString(user.getTranslations()) + "\"}";
+					+ "\"translations\":\"" + user.getTranslations() + "\"}";
 			BasicDBObject jsonObject = (BasicDBObject) JSON.parse(jsonUser);
 			usersCollection.insertOne(jsonObject);
 		} else {
@@ -53,7 +52,12 @@ public class Main {
 			String queriedUserTranaslations = userQueried.getString("translations");
 			String[] trans;
 			trans = queriedUserTranaslations.split(",");
-			user.setTranslations(trans);
+			ArrayList<String> transToList = new ArrayList<String>(trans.length);
+			int i;
+			for (i = 0; i < trans.length; i++) {
+				transToList.add(trans[i]);
+			}
+			user.setTranslations(transToList);
 			
 			logger.log(Level.INFO, "retrieveUser: user " + name + " found. Data: \n "+ user.toString());
 		}
@@ -91,7 +95,12 @@ public class Main {
 				
 				String[] trans;
 				trans = queriedUserTranaslations.split(",");
-				user.setTranslations(trans);
+				ArrayList<String> transToList = new ArrayList<String>(trans.length);
+				int i;
+				for (i = 0; i < trans.length; i++) {
+					transToList.add(trans[i]);
+				}
+				user.setTranslations(transToList);
 				
 				allUsers.add(user);
 	        }
@@ -108,8 +117,10 @@ public class Main {
 		String collectionName = "users";
 		MongoCollection<BasicDBObject> usersCollection;
 		
-		String[] trans = {"Trans1", "Trans2"};
-		String[] trans2 = {"Trans3", "Trans4"};
+		ArrayList<String> trans = new ArrayList<String>(2);
+		trans.add("Trans1"); trans.add("Trans2");
+		ArrayList<String> trans2 = new ArrayList<String>(2);
+		trans2.add("Trans3"); trans2.add("Trans4");
 		User u1 = new User(); u1.setUID("001"); u1.setName("Jasel"); u1.setScore(7); u1.setTranslations(trans);
 		User u2 = new User(); u2.setUID("002"); u2.setName("Timmy"); u2.setScore(5); u2.setTranslations(trans2);
 	    try{

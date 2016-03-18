@@ -34,6 +34,8 @@ public class TextsResource {
 	@Context
 	Request request;
 	
+	UserDAO uDAO = new UserDAO();
+	
 	Logger logger = Logger.getLogger(org.netcomputing.webservices.database.UserRepository.class.getName());
 
 	// Return the list of events to the user in the browser 
@@ -47,9 +49,8 @@ public class TextsResource {
 	}
 	
 	/** 
-	 * Method that hides the logic to search in the database users with the given UID
 	 * @param uid in the web path
-	 * @return user with the given uid from the database
+	 * @return text with the given uid from the database
 	 */
 	@Path("{uid}")
 	@GET
@@ -59,7 +60,7 @@ public class TextsResource {
 	    if(uid == null || uid.trim().length() == 0) {
 	        throw new RuntimeException("GET: there was no given valid unique identifier.");
 	    }
-		User u = UserDAO.instance.getUser(uid);
+		User u = uDAO.getUser(uid);
 		if (u == null) {
 			throw new RuntimeException("GET: user with given " + uid + " not found.");			
 		}

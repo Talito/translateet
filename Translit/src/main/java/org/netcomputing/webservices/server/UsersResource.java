@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -17,7 +16,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.netcomputing.webservices.datamodel.User;
@@ -34,6 +32,8 @@ public class UsersResource {
 	@Context
 	Request request;
 	
+	UserDAO uDAO = new UserDAO();
+	
 	Logger logger = Logger.getLogger(org.netcomputing.webservices.database.UserRepository.class.getName());
 
 	// Return the list of events to the user in the browser 
@@ -42,7 +42,7 @@ public class UsersResource {
 	public List<User> getUsersBrowser() {
 		logger.log(Level.INFO, "getUserBrowser called.");
 		List<User> users = new ArrayList<User>();
-		users.addAll(UserDAO.instance.getModel().values());
+		
 		return users;
 	}
 	
@@ -59,7 +59,7 @@ public class UsersResource {
 	    if(uid == null || uid.trim().length() == 0) {
 	        throw new RuntimeException("GET: there was no given valid unique identifier.");
 	    }
-		User u = UserDAO.instance.getUser(uid);
+		User u = uDAO.getUser(uid);
 		if (u == null) {
 			throw new RuntimeException("GET: user with given " + uid + " not found.");			
 		}
@@ -80,7 +80,9 @@ public class UsersResource {
 		User user = new User();
 		user.setUID(uid); // Long.parseLong(id);
 		user.setName(name);
-		UserDAO.instance.getModel().put(uid, user);
+		uDAO.addUser(user);
+		//UserDAO.instance.getModel().put(uid, user);
+		
 	}
 
 	// Defines that the next path parameter after Events is

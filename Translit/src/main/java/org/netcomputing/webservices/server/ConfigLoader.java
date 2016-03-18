@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -15,6 +17,8 @@ import java.util.Properties;
  * what-is-the-best-way-of-reading-configuration-parameters-from-configuration-file
  */
 public final class ConfigLoader {
+	
+	Logger logger = Logger.getLogger(org.netcomputing.webservices.server.ConfigLoader.class.getName());
 	
 	/**************************************
 	 ** VALUES TO CONFIGURE THE DATABASE ** 
@@ -38,8 +42,11 @@ public final class ConfigLoader {
 		return dbAddress;
 	}
 
-	public String getDbPort() {
-		return dbPort;
+	/**
+	 * @return the port as an integer, as it will be used along the program in that way
+	 */
+	public int getDbPort() {
+		return Integer.parseInt(dbPort);
 	}
 
 	public String getDbName() {
@@ -52,6 +59,7 @@ public final class ConfigLoader {
 	 * @throws IOException 
 	 */
 	public ConfigLoader() throws IOException {
+		logger.log(Level.INFO, "ConfigLoader constructor called.");
 		InputStream inputStream = null;
 		Properties prop = new Properties();
 		String propFileName = "mongodb.properties";
@@ -71,6 +79,7 @@ public final class ConfigLoader {
 			dbPort = prop.getProperty("dbPort");
 			inputStream.close();
 		}
+		logger.log(Level.INFO, "configLoader successfully built.");
 	}
 
 

@@ -1,8 +1,6 @@
 package org.netcomputing.webservices.server;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,6 +31,8 @@ public class Test {
 	@Context
 	Request request;
 	
+	UserDAO uDAO = new UserDAO();
+	
 	Logger logger = Logger.getLogger(org.netcomputing.webservices.database.UserRepository.class.getName());
 
 	// Return the list of events to the user in the browser 
@@ -59,7 +59,7 @@ public class Test {
 	    if(uid == null || uid.trim().length() == 0) {
 	        throw new RuntimeException("GET: there was no given valid unique identifier.");
 	    }
-		User u = UserDAO.instance.getUser(uid);
+		User u = uDAO.getUser(uid);
 		if (u == null) {
 			throw new RuntimeException("GET: user with given " + uid + " not found.");			
 		}

@@ -2,8 +2,6 @@ package org.netcomputing.webservices.datamodel;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,12 +17,7 @@ import org.netcomputing.webservices.server.ConfigLoader;
  * java/com/examples/mongodb/service/impl/PersonServiceImpl.java
  */
 
-public enum UserDAO {
-	
-	/**
-	 * The unique instance of UserDAO
-	 */
-	instance;
+public class UserDAO {
 
 	/**
 	 * The user repository implements the specific methods to communicate
@@ -32,33 +25,29 @@ public enum UserDAO {
 	 */
 	private UserRepository ur;
 	
-	private Map<String, User> contentProvider = new HashMap<String, User>();
+	//private Map<String, User> contentProvider = new HashMap<String, User>();
 	
-	Logger logger = Logger.getLogger(org.netcomputing.webservices.database.UserRepository.class.getName());
+	Logger logger = Logger.getLogger(org.netcomputing.webservices.datamodel.UserDAO.class.getName());
 	
-	private UserDAO() {
-		/*try {
+	public UserDAO() {
+		ur = new UserRepository();
+		try {
+			logger.log(Level.INFO, "UserDAO constructor called...");
 			ur.initializeUserRepository(new ConfigLoader());
+			logger.log(Level.INFO, "UserDAO initialized.");
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "initializeUserRepository did not work");
 			e.printStackTrace();
-		}*/
-		User u = new User();
-		u.setUID("1");
-		u.setName("Jasel");
-		u.setScore(10);
-		contentProvider.put("1", u);
-		
-		User u2 = new User();
-		u2.setUID("2");
-		u2.setName("Timmy");
-		u2.setScore(5);
-		contentProvider.put("2", u2);
+		}
 	}
 
 	public User getUser(String uid) {
-		return contentProvider.get(uid);
-		//return ur.getUser(uid);
+		return ur.getUserByUID(uid);
+	}
+	
+	public void addUser(User user) {
+		logger.log(Level.INFO, "addUser in UserDAO called.");
+		ur.createUser(user);
 	}
 
 	public ArrayList<User> getUsersByScore(int score) {
@@ -66,8 +55,8 @@ public enum UserDAO {
 		return null;
 	}
 	
-	public Map<String, User> getModel() {
-		return contentProvider;
-	}
+//	public Map<String, User> getModel() {
+//		return contentProvider;
+//	}
 
 }
