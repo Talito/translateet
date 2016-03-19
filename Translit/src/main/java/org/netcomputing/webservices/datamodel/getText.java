@@ -42,26 +42,26 @@ public class getText {
 		}
 	}
 
-	public User getUser(String uid) {
-		return ur.getUserByUID(uid);
-	}
-	
-	public void addUser(User user) {
-		logger.log(Level.INFO, "addUser in UserDAO called.");
-		ur.createUser(user);
-	}
-
-	public ArrayList<User> getUsersByScore(int score) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public List<User> getAllUsers() {
-		ArrayList<User> allUsers = new ArrayList<User>();
-		allUsers = ur.getAllUsers();
-		return allUsers;
-	}
-	
+//	public User getUser(String uid) {
+//		return ur.getUserByUID(uid);
+//	}
+//	
+//	public void addUser(User user) {
+//		logger.log(Level.INFO, "addUser in UserDAO called.");
+//		ur.createUser(user);
+//	}
+//
+//	public ArrayList<User> getUsersByScore(int score) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	public List<User> getAllUsers() {
+//		ArrayList<User> allUsers = new ArrayList<User>();
+//		allUsers = ur.getAllUsers();
+//		return allUsers;
+//	}
+//	
 //	public Map<String, User> getModel() {
 //		return contentProvider;
 //	}
