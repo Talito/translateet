@@ -35,7 +35,7 @@ public class Language {
 		name = nam;
 	}
 	
-	public void requestTranslation(String uid, String text) {
+	public void requestTranslation(String toLang, String text) {
 			
 		ConnectionFactory factory = new ConnectionFactory();
 	    factory.setHost(host);
@@ -44,23 +44,28 @@ public class Language {
 		    Connection connection = factory.newConnection();
 		    
 		    Channel channel = connection.createChannel();
-		    channel.exchangeDeclare(name, "fanout");
-		    String qName = channel.queueDeclare().getQueue();
-		    channel.queueBind(qName, name, "");
+		    //Create an exchange for this language
+		    channel.exchangeDeclare(name, "direct");
 		    
-		    TranslationPacket tp = new TranslationPacket(uid, text);
+		    // Binding a queue isn't necessary, but prevents dropped packets
+		    String queueName = channel.queueDeclare().getQueue();
+		    channel.queueBind(queueName, name, toLang);
 		    
-		    channel.basicPublish(name, "", null, tp.getPacket().getBytes("UTF-8"));
+		    //Encode the information
+		    TranslationPacket tp = new TranslationPacket(toLang, text);
 		    
-		    logger.log(Level.INFO, "Enqueued <" + text + "> for <" + uid + ">");
+		    //Use the goal languages as a routing key
+		    channel.basicPublish(name, toLang, null, tp.getPacket().getBytes("UTF-8"));
+		    
+		    logger.log(Level.INFO, "Enqueued <" + text + ">, translate to <" + toLang + ">");
 		    
 		    channel.close();
 		    connection.close();
 	    } catch (IOException e) {
-	    	logger.log(Level.SEVERE, "Sending <" + text + "> for <" + uid
+	    	logger.log(Level.SEVERE, "Sending <" + text + "> translate to <" + toLang
 	    			+ "> failed.", e);
 	    } catch (TimeoutException e) {
-	    	logger.log(Level.SEVERE, "Sending <" + text + "> for <" + uid
+	    	logger.log(Level.SEVERE, "Sending <" + text + "> translate to <" + toLang
 	    			+ "> timed out.", e);
 	    }
 		

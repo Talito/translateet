@@ -1,6 +1,8 @@
 package org.netcomputing.webservices.queues.q4user;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,12 +17,14 @@ import com.rabbitmq.client.Envelope;
 
 public class Translator {
 	
-	private String lang;
+	private String langFrom;
+	private String langTo;
 	private String host = "localhost";
 	private Logger logger = Logger.getLogger(this.getClass().getName());
 	
-	public Translator(String language) {
-		lang = language;
+	public Translator(String from, String to) {
+		langFrom = from;
+		langTo = to;
 	}
 
 	public void translate() {
@@ -30,9 +34,9 @@ public class Translator {
 		    Connection connection = factory.newConnection();
 		    Channel channel = connection.createChannel();
 	
-		    channel.exchangeDeclare(lang, "fanout");
+		    channel.exchangeDeclare(langFrom, "direct");
 		    String queueName = channel.queueDeclare().getQueue();
-		    channel.queueBind(queueName, lang, "");
+		    channel.queueBind(queueName, langFrom, langTo);
 	
 		    logger.log(Level.INFO, "Waiting to translate");
 	
@@ -52,9 +56,14 @@ public class Translator {
 						TranslationPacket tp = new TranslationPacket(message);
 						//translation logic goes here
 						
-						//TODO: Send to Server also
-						channel.queueDeclare(tp.getUser(), true, false, false, null);
-						channel.basicPublish("", tp.getUser(), null, tp.getMsg().getBytes("UTF-8"));
+						System.out.println("Please translate:" + tp.getMessage() + " to " + tp.getLanguage());
+						BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+						String translation = bf.readLine();						
+						bf.close();
+						TranslatedPacket trans = new TranslatedPacket(langFrom, tp.getLanguage(), translation);
+						
+						channel.queueDeclare(DBQueue.DB, true, false, false, null);
+						channel.basicPublish("", DBQueue.DB, null, trans.getPacket().getBytes("UTF-8"));
 						
 						channel.close();
 						connection.close();
