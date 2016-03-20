@@ -2,7 +2,7 @@ package org.netcomputing.webservices.queues.q4user;
 
 /**
  * 
- * @author Stijn
+ * @author Stijn and Jose
  * Container for translation requests
  */
 public class TranslationPacket {

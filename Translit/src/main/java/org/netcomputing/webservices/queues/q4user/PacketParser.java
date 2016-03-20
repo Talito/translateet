@@ -2,7 +2,7 @@ package org.netcomputing.webservices.queues.q4user;
 
 /**
  * 
- * @author Stijn
+ * @author Stijn and Jose
  * 
  * General parser made specifically for translation packets, but
  * could be made reasonably useful for parsing other things.

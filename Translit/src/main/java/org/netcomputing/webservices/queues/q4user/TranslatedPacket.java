@@ -2,7 +2,7 @@ package org.netcomputing.webservices.queues.q4user;
 
 /**
  * 
- * @author Stijn
+ * @author Stijn and Jose
  * Package to be used for communication when a translation
  * is completed
  */
