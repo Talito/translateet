@@ -39,7 +39,8 @@ public class DBQueue {
 				    TranslatedPacket tp;
 					try {
 						tp = new TranslatedPacket(message);
-					    logger.log(Level.INFO, tp.getFromLanguage() + " " + tp.getLanguage() + " " + tp.getMessage());
+					    logger.log(Level.INFO, tp.getFromLanguage() + ">" + tp.getLanguage() + 
+					    		" " + tp.getOriginal() + ">" + tp.getMessage());
 					    //TODO: Update DB
 					} catch (PacketFormatException e) {
 						logger.log(Level.SEVERE, "Package malformed. Package: " + message +

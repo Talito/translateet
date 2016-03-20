@@ -60,7 +60,9 @@ public class Translator {
 						BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 						String translation = bf.readLine();						
 						bf.close();
-						TranslatedPacket trans = new TranslatedPacket(langFrom, tp.getLanguage(), translation);
+												
+						TranslatedPacket trans = new TranslatedPacket(langFrom, tp.getLanguage(),
+								translation, tp.getMessage());
 						
 						channel.queueDeclare(DBQueue.DB, true, false, false, null);
 						channel.basicPublish("", DBQueue.DB, null, trans.getPacket().getBytes("UTF-8"));
