@@ -1,4 +1,4 @@
-package org.netcomputing.webservices.queues;
+package org.netcomputing.webservices.queues.fanout;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
@@ -105,23 +105,44 @@ public class Sim {
 	    return pls;
 	}
 	
-	public static void main(String...args) {
+	public static void main(String...args) throws InterruptedException {
 		String lang = "a";
 		new Thread(new Runnable(){
 			public void run() {
-				new Sim().requestTranslation("Stijn", lang, "Productivity");
+				try {
+					String msg = new Sim().getTranslation(lang).getContent();
+					Logger.getLogger(this.getClass().getName()).log(Level.INFO, msg + " 1 "); 
+				} catch (InterruptedException e) {
+					Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Could not get translation");
+				}
 			}
 		}).start();
 		new Thread(new Runnable(){
 			public void run() {
 				try {
 					String msg = new Sim().getTranslation(lang).getContent();
-					Logger.getLogger(this.getClass().getName()).log(Level.INFO, msg); 
+					Logger.getLogger(this.getClass().getName()).log(Level.INFO, msg + " 2 "); 
 				} catch (InterruptedException e) {
 					Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Could not get translation");
 				}
 			}
 		}).start();
-		
+		new Thread(new Runnable(){
+			public void run() {
+				try {
+					String msg = new Sim().getTranslation(lang).getContent();
+					Logger.getLogger(this.getClass().getName()).log(Level.INFO, msg + " 3 "); 
+				} catch (InterruptedException e) {
+					Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Could not get translation");
+				}
+			}
+		}).start();
+		Thread.sleep(500);
+		new Thread(new Runnable(){
+			public void run() {
+				for(int i = 0; i < 3; ++i)
+					new Sim().requestTranslation("Stijn", lang, "Productivity");
+			}
+		}).start();
 	}
 }
