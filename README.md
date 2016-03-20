@@ -11,6 +11,8 @@ The API can return either XML or JSON answers. It allows some basic functionalit
 	- Retrieve texts (e.g. ./rest/texts/001 retrieves text with UID == 001)
 	- Retrieve ALL texts (by means of clicking on a particular button)	
 
+The requests are sent to special users (translators) after being filtered by languages by queues (using RabbitMQ technology). A queue also gathers the translations from these users.
+
 * Version 0.3
 * [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
