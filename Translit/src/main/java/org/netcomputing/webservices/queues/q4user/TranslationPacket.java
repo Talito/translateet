@@ -1,5 +1,10 @@
 package org.netcomputing.webservices.queues.q4user;
 
+/**
+ * 
+ * @author Stijn
+ * Container for translation requests
+ */
 public class TranslationPacket {
 
 	private String lang;
@@ -11,6 +16,14 @@ public class TranslationPacket {
 	protected static final String LOPEN = "Language(l=";
 	protected static final String TOPEN = "Message(l=";
 	
+	/**
+	 * Decomposes pckt into a language and a message, storing them in
+	 * this TranslationPacket
+	 * @param pckt
+	 * The string to be converted
+	 * @throws PacketFormatException
+	 * if pckt is badly formatted
+	 */
 	public TranslationPacket(String pckt) throws PacketFormatException {
 		packet = pckt;
 		pp = new PacketParser(packet);
@@ -24,6 +37,14 @@ public class TranslationPacket {
 		msg = pp.accept(mLen);
 	}
 	
+	/**
+	 * Creates a translation packet from lng and text, storing
+	 * their packet representation in packet.
+	 * @param lng
+	 * the desired language of the translation
+	 * @param text
+	 * the text to be translated
+	 */
 	public TranslationPacket(String lng, String text) {
 		lang = lng;
 		msg = text;
@@ -33,14 +54,26 @@ public class TranslationPacket {
 	    packet = sb.toString();
 	}
 
+	/**
+	 * @return
+	 * The desired language of this packet
+	 */
 	public String getLanguage() {
 		return lang;
 	}
 
+	/**
+	 * @return
+	 * The relevant data in this packet
+	 */
 	public String getMessage() {
 		return msg;
 	}
 
+	/**
+	 * @return
+	 * The one-string representation of this packet
+	 */
 	public String getPacket() {
 		return packet;
 	}

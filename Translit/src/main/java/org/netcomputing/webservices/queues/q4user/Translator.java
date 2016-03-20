@@ -15,6 +15,11 @@ import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
+/**
+ * Represents a translator in the Queue section of the program
+ * Presents a message to a translator, and sends the translation
+ * to the server 
+ */
 public class Translator {
 	
 	private String langFrom;

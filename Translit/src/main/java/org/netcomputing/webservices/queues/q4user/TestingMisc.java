@@ -1,5 +1,8 @@
 package org.netcomputing.webservices.queues.q4user;
 
+/**
+ * Runs the queue module to see if it works.
+ */
 public class TestingMisc {
 	
 	public static void main(String...args) throws InterruptedException {

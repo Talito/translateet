@@ -13,6 +13,10 @@ import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
+/**
+ * Container for database interactions. Collects any translation sent
+ * by translators, and stores it in the database.
+ */
 public class DBQueue {
 	
 	private Logger logger = Logger.getLogger(this.getClass().getName());
@@ -25,7 +29,8 @@ public class DBQueue {
 	    try {
 	        Connection connection = factory.newConnection();
 	        Channel channel = connection.createChannel();
-
+	        
+	        //Create a queue to accept DB requests
 	        channel.queueDeclare(DB, true, false, false, null);
 	        
 	        logger.log(Level.INFO, "Waiting for translations");
@@ -38,6 +43,7 @@ public class DBQueue {
 				    logger.log(Level.INFO, "Received message:" + message);
 				    TranslatedPacket tp;
 					try {
+						//interpret received message
 						tp = new TranslatedPacket(message);
 					    logger.log(Level.INFO, tp.getFromLanguage() + ">" + tp.getLanguage() + 
 					    		" " + tp.getOriginal() + ">" + tp.getMessage());

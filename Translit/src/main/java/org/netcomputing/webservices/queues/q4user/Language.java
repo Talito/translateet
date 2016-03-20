@@ -12,8 +12,13 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
+/*
+ * Represents a channel for translating from one language
+ * to another.
+ */
 public class Language {
 
+	//TODO: Because of how rabbitmq works, this might not be necessary
 	private static Map<String, Language> languages = 
 			Collections.synchronizedMap(new HashMap<String, Language>());
 	//TODO: Factory?

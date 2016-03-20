@@ -1,5 +1,11 @@
 package org.netcomputing.webservices.queues.q4user;
 
+/**
+ * 
+ * @author Stijn
+ * Package to be used for communication when a translation
+ * is completed
+ */
 public class TranslatedPacket extends TranslationPacket {
 
 	private String fromLang;
@@ -29,11 +35,18 @@ public class TranslatedPacket extends TranslationPacket {
 		pp.accept(CLOSE);
 		original = pp.accept(oSize);
 	}
-	
+	/**
+	 * @return
+	 * The language this text was originally in
+	 */
 	public String getFromLanguage() {
 		return fromLang;
 	}
 	
+	/**
+	 * @return
+	 * the original text for this packet.
+	 */
 	public String getOriginal() {
 		return original;
 	}
