@@ -28,7 +28,7 @@ public class DBQueue {
 
 	        channel.queueDeclare(DB, true, false, false, null);
 	        
-	        logger.log(Level.INFO, "Waiting for my translation...");
+	        logger.log(Level.INFO, "Waiting for translations");
 	        
 		    Consumer consumer = new DefaultConsumer(channel) {
 			    @Override
