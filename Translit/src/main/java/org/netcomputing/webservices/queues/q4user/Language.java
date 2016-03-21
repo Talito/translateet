@@ -8,6 +8,8 @@ import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.netcomputing.webservices.server.ConfigLoader;
+
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -18,6 +20,26 @@ import com.rabbitmq.client.ConnectionFactory;
  */
 public class Language {
 
+	private ConfigLoader configLoader;
+	
+	private String host = "localhost"; // default
+	private String name;
+	private Logger logger = Logger.getLogger(this.getClass().getName());
+	
+	public Language() {
+		if (configLoader != null) {
+			try {
+				configLoader = new ConfigLoader();
+				host = this.configLoader.getDbAddress();
+				logger.log(Level.INFO, "ConfigLoader in DBQueue - host: "
+						+ host + ".");
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "Could not set the variable ConfigLoader in Language.");
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	//TODO: Because of how rabbitmq works, this might not be necessary
 	private static Map<String, Language> languages = 
 			Collections.synchronizedMap(new HashMap<String, Language>());
@@ -31,12 +53,8 @@ public class Language {
 		return languages.get(nam);
 	}
 	
-	//TODO: configurable host
-	private String host = "localhost";
-	private String name;
-	private Logger logger = Logger.getLogger(this.getClass().getName());
-	
 	private Language(String nam) {
+		this();
 		name = nam;
 	}
 	

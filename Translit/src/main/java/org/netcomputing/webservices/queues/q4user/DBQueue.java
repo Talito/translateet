@@ -5,6 +5,8 @@ import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.netcomputing.webservices.server.ConfigLoader;
+
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -19,9 +21,29 @@ import com.rabbitmq.client.Envelope;
  */
 public class DBQueue {
 	
+	/**
+	 * Stores the configuration of the database (port, name, address).
+	 */
+	private ConfigLoader configLoader;
+	
 	private Logger logger = Logger.getLogger(this.getClass().getName());
-	private String host = "localhost";
-	public static final String DB = "db";
+	private String host = "localhost"; // default
+	public static String DB;
+	
+	public DBQueue() {
+		if (configLoader == null) {
+			try {
+				configLoader = new ConfigLoader();
+				DB = this.configLoader.getDbName();
+				host = this.configLoader.getDbAddress();
+				logger.log(Level.INFO, "ConfigLoader in DBQueue - DB name: " + DB + ", host: "
+						+ host + ".");
+			} catch (IOException e) {
+				logger.log(Level.INFO, "Could not set the variable ConfigLoader in DBQueue.");
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	public void updateDatabase() {
 		ConnectionFactory factory = new ConnectionFactory();

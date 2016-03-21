@@ -85,14 +85,4 @@ public class UsersResource {
 		
 	}
 
-	// Defines that the next path parameter after Events is
-	// treated as a parameter and passed to the EventResources
-	// Allows to type
-	// http://localhost:8080/.../rest/locations/1
-	// 1 will be treaded as parameter and passed to EventResource
-	@Path("{event}")
-	public EventResource getLocation(@PathParam("event") String id) {
-		logger.log(Level.INFO, "getLocation called.");
-		return new EventResource(uriInfo, request, id);
-	}
 }

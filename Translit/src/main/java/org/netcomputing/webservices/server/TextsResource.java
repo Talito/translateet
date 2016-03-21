@@ -20,6 +20,9 @@ import javax.ws.rs.core.UriInfo;
 
 import org.netcomputing.webservices.datamodel.Text;
 import org.netcomputing.webservices.datamodel.TextDAO;
+import org.netcomputing.webservices.queues.q4user.DBQueue;
+import org.netcomputing.webservices.queues.q4user.Language;
+import org.netcomputing.webservices.queues.q4user.Translator;
 
 
 //Will map the resource to the URL positions
@@ -73,13 +76,38 @@ public class TextsResource {
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void newTranslationRequest(@FormParam("textuid") String uid,
-			@FormParam("message") String message) throws IOException {
+			@FormParam("message") String message, @FormParam("langFrom") String langFrom, 
+			@FormParam("langTo") String langTo) throws IOException {
 		logger.log(Level.INFO, "newTranslationRequest called.");
-		Text text = new Text();
+		
+		new Thread(new Runnable() {
+			public void run() {
+				Translator tr = new Translator(langFrom, langTo);
+				tr.translate();
+			}
+		}).start();
+		
+		logger.log(Level.INFO, "Thread with Translator initialized.");
+		new Thread(new Runnable() {
+			public void run() {
+				Language lang = Language.getLanguage(langFrom);
+				lang.requestTranslation(langTo, message);
+			}
+		}).start();
+		logger.log(Level.INFO, "Thread with Language initialized.");
+		
+		DBQueue us = new DBQueue();
+		us.updateDatabase();
+		logger.log(Level.INFO, "DBQueue update() called...");
+		
+		/**
+		 * We should be doing some writing in the DB here?
+		 */
+		/*Text text = new Text();
 		text.setUID(uid);
 		text.setMessage(message);
 		System.out.println(uid);
 		System.out.println(message);
-		tDAO.addRequest(text);
+		tDAO.addRequest(text);*/
 	}
 }

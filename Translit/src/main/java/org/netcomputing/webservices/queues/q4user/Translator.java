@@ -7,6 +7,8 @@ import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.netcomputing.webservices.server.ConfigLoader;
+
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -24,10 +26,26 @@ public class Translator {
 	
 	private String langFrom;
 	private String langTo;
-	private String host = "localhost";
+	private String host = "localhost"; // default
 	private Logger logger = Logger.getLogger(this.getClass().getName());
+	private ConfigLoader configLoader;
+	
+	public Translator() {
+		if (configLoader != null) {
+			try {
+				configLoader = new ConfigLoader();
+				host = this.configLoader.getDbAddress();
+				logger.log(Level.INFO, "ConfigLoader in Translator - host: "
+						+ host + ".");
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "Could not set the variable ConfigLoader in Translator.");
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	public Translator(String from, String to) {
+		this();
 		langFrom = from;
 		langTo = to;
 	}
