@@ -1,8 +1,6 @@
 package rmi.client;
 
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.netcomputing.webservices.datamodel.Text;
 import org.netcomputing.webservices.datamodel.Translation;
@@ -18,7 +16,7 @@ import rmi.base.Task;
  */
 public class CalcTranslation implements Task<Text>, Serializable {
 	
-	Logger logger = Logger.getLogger(this.getClass().getName());
+	//Logger logger = Logger.getLogger(this.getClass().getName());
 	
 	private static final long serialVersionUID = 3942967283733335029L;
 
@@ -44,7 +42,7 @@ public class CalcTranslation implements Task<Text>, Serializable {
 		Translation t = new Translation();
 		t.setText("Translation done by the AI");
 		msg.getTranslations().add(t);
-		logger.log(Level.INFO, "Got computed translation: " + t.getText());
+		//logger.log(Level.INFO, "Got computed translation: " + t.getText());
 		return msg;
 	}
 

@@ -3,8 +3,6 @@ package rmi.server;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import rmi.base.Compute;
 import rmi.base.RmiStarter;
@@ -20,21 +18,21 @@ import rmi.base.RmiStarter;
  */
 public class ComputeTranslatorEngineStarter extends RmiStarter {
 	
-	private static Logger logger = Logger.getLogger(ComputeTranslatorEngineStarter.class.getName());
+	//private static Logger logger = Logger.getLogger(ComputeTranslatorEngineStarter.class.getName());
 	
 	@Override
 	public void start() {
 		try {
-			logger.log(Level.INFO, "Starting ComputeTranslatorEngineStarter");
+			//logger.log(Level.INFO, "Starting ComputeTranslatorEngineStarter");
 			Compute engine = new ComputeTranslatorEngine();
 			//System.setProperty("java.rmi.server.hostname","192.168.1.2");
-			logger.log(Level.INFO, "ComputeTranslatorEngine() created.");
+			//logger.log(Level.INFO, "ComputeTranslatorEngine() created.");
 			Compute engineStub = (Compute) UnicastRemoteObject.exportObject(engine, 0);
-			logger.log(Level.INFO, "UnicastRemoteObject.export...() called.");
+			//logger.log(Level.INFO, "UnicastRemoteObject.export...() called.");
 			Registry registry = LocateRegistry.getRegistry(); // default port 1099 for RMIRegistry
-			logger.log(Level.INFO, "LocateRegistry.getRegistry() called.");
+			//logger.log(Level.INFO, "LocateRegistry.getRegistry() called.");
 			registry.rebind(Compute.SERVICE_NAME, engineStub);
-			logger.log(Level.INFO, "Service binded...");
+			//logger.log(Level.INFO, "Service binded...");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
