@@ -18,10 +18,16 @@ import rmi.base.RmiStarter;
  */
 public class LaunchCalcTranslationtask extends RmiStarter {
 	
-	Logger logger = Logger.getLogger(this.getClass().getName());
+	volatile Logger logger = Logger.getLogger(this.getClass().getName());
 	
 	private Text msg;
 	private String langFrom, langTo;
+	
+	public LaunchCalcTranslationtask() {
+		this.msg = new Text(); msg.setMessage("whatever");
+		this.langFrom = "Spanish";
+		this.langTo = "Polish";
+	}
 	
 	public LaunchCalcTranslationtask(Text msg, String langFrom, String langTo) {
 		this.msg = msg;
@@ -47,6 +53,10 @@ public class LaunchCalcTranslationtask extends RmiStarter {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void main(String[] args) {
+		new LaunchCalcTranslationtask().start();
 	}
 
 }
