@@ -27,7 +27,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img src="img/logo.jpg" height=30 width=41></a>
+                <a class="navbar-brand" href="#"><img src="img/logo.png" height=30 width=41></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-2">
                     <p style="padding:20px;"></p>
-                    <img src="img/logo.jpg" class="img-responsive">
+                    <img src="img/logo.png" class="img-responsive">
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                     <div class="media-left media-middle">
                         <a href="#">
                         <img class="media-object img-thumbnail image-responsive"
-                         src="img/logo.jpg" alt="goal">
+                         src="img/logo.png" alt="goal">
                         </a>
                     </div>
                     <div class="media-body">
@@ -86,6 +86,7 @@
             </div>
         </div>
 
+		Create a user
         <div class="row row-content">
             <form action="rest/users" method="POST" id="userform">
                 <div class="form-group">
@@ -100,6 +101,7 @@
             </form>
         </div>
 
+		Send a translation request to a human translator
         <div class="row row-content">
             <form action="rest/texts" method="POST" id="textform">
                 	<div class="form-group">
@@ -144,16 +146,37 @@
                     <input type="submit" value="Submit"/>
             </form>
         </div>
+        
+        Give score to a particular user
+       	<div class="row row-content">
+            <form action="rest/scores" method="POST" id="scoreform">
+                	<div class="form-group">
+                  		<label for="uid">UID:</label>
+                  		<input name="uid" type="text" class="form-control" id="uid">
+                	</div>
+                	<div class="form-group">
+                  		<label for="score">Points to give:</label>
+                  		<input name="score" type="text" class="form-control" id="score">
+                	</div>
+                    <input type="submit" value="Submit"/>
+            </form>
+            <a href="rest/scores"> 
+                <button type="button" class="btn btn-success">Highest-ranked user</button></a>
+        </div>
+        
+        Delete your account (?!)
+       	<div class="row row-content">
+            <a href="rest/profile"> 
+                <button type="button" class="btn btn-danger">Yes, I'm sure</button></a>
+        </div>
 
         <div class="row row-content">
             <a href="rest/users"> 
                 <button type="button" class="btn btn-primary">Retrieve all users</button></a>
-        </div>
-        
-        <div class="row row-content">
             <a href="rest/texts"> 
                 <button type="button" class="btn btn-primary">Retrieve all texts</button></a>
         </div>
+
 
         <div class="row row-content">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">

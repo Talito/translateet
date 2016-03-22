@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bson.Document;
 import org.netcomputing.webservices.datamodel.User;
 import org.netcomputing.webservices.server.ConfigLoader;
 
@@ -164,15 +165,20 @@ public class UserRepository {
 		return allUsers;
 	}
 
-	/*
-	public MongoDatabase getDB() throws UnknownHostException {
-		if (mongoClient == null) {
-			mongoClient = new MongoClient(configLoader.getDbAddress(), Integer.parseInt(configLoader.getDbPort()));
-		}
-		if (db == null) {
-			db = mongoClient.getDatabase(configLoader.getDbName());
-		}
-		return db;
-	}*/
+	public void updateUser(User user) {
+		logger.log(Level.INFO, "updateUser called in UserRepository.");
+		int newScore = 0;
+		User tempUser = this.getUserByUID(user.getUID()); // get the user
+		newScore = ((user.getScore() + tempUser.getScore())/2);
+		usersCollection.updateOne(
+				new Document("UID", user.getUID()),
+				new Document("score", Integer.toString(newScore))
+				);
+	}
+
+	public void deleteUser(String uid) {
+		logger.log(Level.INFO, "deleteUser called in UserRepository.");
+		usersCollection.deleteOne(new Document("UID", uid));
+	}
 
 }

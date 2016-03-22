@@ -36,7 +36,6 @@ public class UsersResource {
 	
 	Logger logger = Logger.getLogger(this.getClass().getName());
 
-	// Return the list of events to the user in the browser 
 	@GET
 	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_JSON})
 	public List<User> getUsersBrowser() {
@@ -65,6 +64,7 @@ public class UsersResource {
 		}
 		return u;
 	}
+
 	
 	/** 
 	 * Method that hides the logic to search in the database users with the given UID
@@ -78,11 +78,15 @@ public class UsersResource {
 			@FormParam("name") String name) throws IOException {
 		logger.log(Level.INFO, "newUser called.");
 		User user = new User();
-		user.setUID(uid); // Long.parseLong(id);
+		user.setUID(uid);
 		user.setName(name);
 		uDAO.addUser(user);
-		//UserDAO.instance.getModel().put(uid, user);
 		
+	}
+
+	public void updateUser(User user) {
+		logger.log(Level.INFO, "updateUser called.");
+		uDAO.updateUser(user);
 	}
 
 }

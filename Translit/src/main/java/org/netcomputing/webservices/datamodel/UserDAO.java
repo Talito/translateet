@@ -51,15 +51,23 @@ public class UserDAO {
 		ur.createUser(user);
 	}
 
-	public ArrayList<User> getUsersByScore(int score) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public List<User> getAllUsers() {
 		ArrayList<User> allUsers = new ArrayList<User>();
 		allUsers = ur.getAllUsers();
 		return allUsers;
+	}
+
+	public User getUserWithHighestScore() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void updateUser(User user) {
+		ur.updateUser(user);
+	}
+
+	public void deleteUser(User fakeUser) {
+		ur.deleteUser(fakeUser.getUID());
 	}
 
 }

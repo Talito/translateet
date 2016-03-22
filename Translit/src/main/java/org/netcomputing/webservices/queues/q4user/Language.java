@@ -31,7 +31,7 @@ public class Language {
 			try {
 				configLoader = new ConfigLoader();
 				host = this.configLoader.getDbAddress();
-				logger.log(Level.INFO, "ConfigLoader in DBQueue - host: "
+				logger.log(Level.INFO, "ConfigLoader in Language - host: "
 						+ host + ".");
 			} catch (IOException e) {
 				logger.log(Level.SEVERE, "Could not set the variable ConfigLoader in Language.");

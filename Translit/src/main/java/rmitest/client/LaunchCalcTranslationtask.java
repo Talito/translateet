@@ -5,6 +5,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.netcomputing.webservices.datamodel.Text;
+import org.netcomputing.webservices.queues.q4user.DBQueue;
+
 import rmitest.base.Compute;
 import rmitest.base.RmiStarter;
 /**
@@ -39,9 +41,9 @@ public class LaunchCalcTranslationtask extends RmiStarter {
 			/**
 			 * Send solution to DBQueue
 			 */
-//			DBQueue us = new DBQueue();
-//			us.updateDatabase();
-//			logger.log(Level.INFO, "DBQueue update() called by the AI...");
+			DBQueue us = new DBQueue();
+			us.updateDatabase();
+			logger.log(Level.INFO, "DBQueue update() called by the AI...");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
