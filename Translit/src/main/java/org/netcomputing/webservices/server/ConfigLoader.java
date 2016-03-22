@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public final class ConfigLoader {
 	
-	Logger logger = Logger.getLogger(org.netcomputing.webservices.server.ConfigLoader.class.getName());
+	Logger logger = Logger.getLogger(this.getClass().getName());
 	
 	/**************************************
 	 ** VALUES TO CONFIGURE THE DATABASE ** 

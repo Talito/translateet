@@ -13,7 +13,7 @@ public class Translation {
 	@XmlElement(required = true)
 	private long UID;
 	@XmlElement(required = true)
-	private String originalTçextUI;
+	private String originalTextUI;
 	@XmlElement(required = true)
 	private String message;
 	private int score;
@@ -28,10 +28,10 @@ public class Translation {
 	}
 	
 	public String getText() {
-		return originalTçextUI;
+		return originalTextUI;
 	}
 	public void setText(String newTextUID) {
-		this.originalTçextUI = newTextUID;
+		this.originalTextUI = newTextUID;
 	}
 	public int getScore() {
 		return score;

@@ -28,7 +28,7 @@ public class UserDAO {
 	
 	//private Map<String, User> contentProvider = new HashMap<String, User>();
 	
-	Logger logger = Logger.getLogger(org.netcomputing.webservices.datamodel.UserDAO.class.getName());
+	Logger logger = Logger.getLogger(this.getClass().getName());
 	
 	public UserDAO() {
 		ur = new UserRepository();

@@ -48,7 +48,7 @@ public class UserRepository {
 	
 	private MongoCollection<BasicDBObject> usersCollection;
 
-	Logger logger = Logger.getLogger(org.netcomputing.webservices.database.UserRepository.class.getName());
+	Logger logger = Logger.getLogger(this.getClass().getName());
 	
 	public UserRepository() {};
 

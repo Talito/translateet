@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {"UID", "name", "score", "translations"})
 public class User {
 	
-	static Logger logger = Logger.getLogger(org.netcomputing.webservices.datamodel.User.class.getName());
+	Logger logger = Logger.getLogger(this.getClass().getName());
 	
 	@XmlElement(name = "UID")
 	private String UID;

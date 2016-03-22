@@ -14,10 +14,15 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
-import org.netcomputing.webservices.queues.q4user.DBQueue;
-import org.netcomputing.webservices.queues.q4user.Translator;
+import org.netcomputing.webservices.datamodel.Text;
 
+import rmitest.client.LaunchCalcTranslationtask;
 
+/**
+ * @TODO: Write explanation of REST API and AI interaction
+ * @author Jose and Stijn
+ *
+ */
 //Will map the resource to the URL positions
 @Path("/airmi")
 public class AIRMIResource {
@@ -40,18 +45,23 @@ public class AIRMIResource {
 	public void newTranslationRequest(@FormParam("textuid") String uid,
 			@FormParam("message") String message, @FormParam("langFrom") String langFrom, 
 			@FormParam("langTo") String langTo) throws IOException {
+		
 		logger.log(Level.INFO, "AI called.");
 		
-		new Thread(new Runnable() {
-			public void run() {
-				Translator tr = new Translator(langFrom, langTo);
-				tr.translate();
-			}
-		}).start();
+//		new Thread(new Runnable() {
+//			public void run() {
+//				Translator tr = new Translator(langFrom, langTo);
+//				tr.translate();
+//			}
+//		}).start();
 		
-		DBQueue us = new DBQueue();
-		us.updateDatabase();
-		logger.log(Level.INFO, "DBQueue update() called...");
+		Text task = new Text();
+		task.setUID(uid); task.setMessage(message);
+		new LaunchCalcTranslationtask(task, langFrom, langTo).start();
+		logger.log(Level.INFO, "LaunchCalcTranslationtask started and running already...");
+		
+//		DBQueue us = new DBQueue();
+//		us.updateDatabase();
 		
 		/**
 		 * We should be doing some writing in the DB here?

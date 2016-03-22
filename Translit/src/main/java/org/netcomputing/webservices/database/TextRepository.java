@@ -48,7 +48,7 @@ public class TextRepository {
 	
 	private MongoCollection<BasicDBObject> textsCollection;
 
-	Logger logger = Logger.getLogger(org.netcomputing.webservices.database.TextRepository.class.getName());
+	Logger logger = Logger.getLogger(this.getClass().getName());
 	
 	public TextRepository() {};
 

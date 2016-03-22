@@ -37,7 +37,7 @@ public class TextsResource {
 	
 	TextDAO tDAO = new TextDAO();
 	
-	Logger logger = Logger.getLogger(org.netcomputing.webservices.database.TextRepository.class.getName());
+	Logger logger = Logger.getLogger(this.getClass().getName());
 
 	// Return the list of events to the user in the browser 
 	@GET

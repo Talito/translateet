@@ -16,7 +16,7 @@ public class TextDAO {
 		
 		//private Map<String, User> contentProvider = new HashMap<String, User>();
 		
-		Logger logger = Logger.getLogger(org.netcomputing.webservices.datamodel.TextDAO.class.getName());
+		Logger logger = Logger.getLogger(this.getClass().getName());
 		
 		public TextDAO() {
 			tr = new TextRepository();
