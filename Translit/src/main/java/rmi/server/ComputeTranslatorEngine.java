@@ -1,8 +1,9 @@
-package rmitest.server;
+package rmi.server;
 
 import java.rmi.RemoteException;
-import rmitest.base.Compute;
-import rmitest.base.Task;
+
+import rmi.base.Compute;
+import rmi.base.Task;
 
 public class ComputeTranslatorEngine implements Compute {
 

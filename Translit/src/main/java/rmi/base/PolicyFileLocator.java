@@ -1,4 +1,4 @@
-package rmitest.base;
+package rmi.base;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;

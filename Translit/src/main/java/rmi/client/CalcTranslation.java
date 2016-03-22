@@ -1,4 +1,4 @@
-package rmitest.client;
+package rmi.client;
 
 import java.io.Serializable;
 import java.util.logging.Level;
@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import org.netcomputing.webservices.datamodel.Text;
 import org.netcomputing.webservices.datamodel.Translation;
 
-import rmitest.base.Task;
+import rmi.base.Task;
 
 /**
  * The CalcTranslation class implements the Task interface.

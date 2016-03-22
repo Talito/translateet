@@ -1,4 +1,4 @@
-package rmitest.server;
+package rmi.server;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -6,8 +6,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import rmitest.base.Compute;
-import rmitest.base.RmiStarter;
+import rmi.base.Compute;
+import rmi.base.RmiStarter;
 
 /**
  * start the server component. this exposes the an implementation of the Compute

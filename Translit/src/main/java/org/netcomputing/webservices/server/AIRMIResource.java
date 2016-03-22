@@ -16,7 +16,7 @@ import javax.ws.rs.core.UriInfo;
 
 import org.netcomputing.webservices.datamodel.Text;
 
-import rmitest.client.LaunchCalcTranslationtask;
+import rmi.client.LaunchCalcTranslationtask;
 
 /**
  * @TODO: Write explanation of REST API and AI interaction

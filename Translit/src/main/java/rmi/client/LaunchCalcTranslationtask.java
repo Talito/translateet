@@ -1,4 +1,4 @@
-package rmitest.client;
+package rmi.client;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.logging.Level;
@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 import org.netcomputing.webservices.datamodel.Text;
 import org.netcomputing.webservices.queues.q4user.DBQueue;
 
-import rmitest.base.Compute;
-import rmitest.base.RmiStarter;
+import rmi.base.Compute;
+import rmi.base.RmiStarter;
 /**
  * RMI Client : get the RMI Compute service and send a task to compute PI to N
  * digits

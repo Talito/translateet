@@ -1,4 +1,4 @@
-package rmitest.base;
+package rmi.base;
 /**
  * The Task interface has a type parameter, T, which represents the result type
  * of the task's computation. This is an example of generic types, implemented
