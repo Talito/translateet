@@ -21,7 +21,7 @@ The requests are sent to special users (translators) after being filtered by lan
 * Summary of set up
 	Import the project to Eclipse. Enjoy it with the 'Run' -> 'Run on server' option.
 * Configuration
-	MongoDB, Tomcat, Eclipse; Maven works out the dependencies.
+	MongoDB and Tomcat server must be working; Eclipse with Maven works out the dependencies. RabbitMQ Server and RMIRegistry must be working as well.
 * Dependencies
 	They are already set up by configuration of Maven.
 * Database configuration
