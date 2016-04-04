@@ -5,6 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,7 +15,7 @@ import java.util.logging.Logger;
  *
  * TCP server for one to one support chat
  */
-public class ServiceServer extends SoftStopThread {
+public class ServiceServer extends Observable implements Runnable {
 	
 	private ServerSocket ss;
 	public List<Chatter> sessions;
@@ -24,25 +25,18 @@ public class ServiceServer extends SoftStopThread {
 	/**
 	 * Creates a new ServiceServer on port
 	 * @param portNo
+	 * @throws IOException if the socket can't be opened
 	 */
-	public ServiceServer(int portNo) {
+	public ServiceServer(int portNo) throws IOException {
 		port = portNo;
 		sessions = new ArrayList<>();
-	}
-
-	/**
-	 * Initializes the serversocket to the port.
-	 */
-	@Override
-	protected boolean initialize() {
 		try {
 			ss = new ServerSocket(port);
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "Could not create ServerSocket.", e);
-			return false;
+			throw e;
 		}
 		logger.log(Level.INFO, "initialized");
-		return true;
 	}
 
 	/**
@@ -50,28 +44,27 @@ public class ServiceServer extends SoftStopThread {
 	 * with the incoming user. Support staff can receive a notification
 	 */
 	@Override
-	protected boolean execute() {
-		try {
-			logger.log(Level.INFO, "Waiting for connection");
-			Socket con = ss.accept();
-			logger.log(Level.INFO, "Created connection on port " + con.getPort());
-			Chatter ch = new Chatter(con);
-			sessions.add(ch);
-			new Thread(ch).start();
-			setChanged();
-			notifyObservers();
-		} catch (IOException e) {
-			logger.log(Level.SEVERE, "Could not accept connection", e);
-			return false;
+	public void run() {
+		while(true) {
+			try {
+				logger.log(Level.INFO, "Waiting for connection");
+				Socket con = ss.accept();
+				logger.log(Level.INFO, "Created connection on port " + con.getPort());
+				Chatter ch = new Chatter(con);
+				sessions.add(ch);
+				new Thread(ch).start();
+				setChanged();
+				notifyObservers();
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "Could not accept connection", e);
+			}
 		}
-		return true;
 	}
 
 	/**
-	 * Cleans up the system after termination is initialised.
+	 * Cleans up the system after thread termination.
 	 */
-	@Override
-	protected void cleanUp() {
+	public void cleanUp() {
 		if(ss == null)
 			return;
 		try {

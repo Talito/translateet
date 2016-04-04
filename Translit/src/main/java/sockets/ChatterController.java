@@ -31,7 +31,6 @@ public class ChatterController {
 		} catch (IOException e) {
 			System.err.println("FFS");
 		}
-		ch.softStop();
 	}
 
 	

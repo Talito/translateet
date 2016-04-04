@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,7 +18,7 @@ import java.util.logging.Logger;
  * @author Stijn and Jose
  * Represents a one-to-one chat agent
  */
-public class Chatter extends SoftStopThread {
+public class Chatter extends Observable implements Runnable {
 
 	private Logger logger;
 	private BufferedReader in;
@@ -91,26 +92,23 @@ public class Chatter extends SoftStopThread {
 	 * does not block on read.
 	 */
 	@Override
-	protected boolean execute() {
-		try {
-			if(!in.ready())
-				return true;
-			ll.add(in.readLine());
-			setChanged();
-			notifyObservers();
-		} catch (IOException e) {
-			logger.log(Level.SEVERE, "Could not receive user request", e);
-			return false;
+	public void run() {
+		while(true) {
+			try {
+				ll.add(in.readLine());
+				setChanged();
+				notifyObservers();
+			} catch (IOException e) {
+				logger.log(Level.SEVERE, "Could not receive user request", e);
+			}
 		}
-		return true;
 	}
 	
 	/**
 	 * Closes the connections when the thread finishes.This should
 	 * not be used afterwards.
 	 */
-	@Override
-	protected void cleanUp() {
+	public void cleanUp() {
 		try {
 			logger.log(Level.INFO, "Closing connections");
 			in.close();
